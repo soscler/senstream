@@ -1,10 +1,13 @@
 package engine;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
 public abstract class MeasureAbs implements Measure {
 
     private Date date;
