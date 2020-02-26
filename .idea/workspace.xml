@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="80fe800e-79c1-433c-9848-722fdca6e648" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1YIK0RI8GbuEw7aJcxiu8a8TtCW" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Application" />
+      <module name="streaming-with-javalin-angular" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Application" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="80fe800e-79c1-433c-9848-722fdca6e648" name="Default Changelist" comment="" />
+      <created>1582624444555</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582624444555</updated>
+      <workItem from="1582624446901" duration="15122000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1088" y="431" width="374" height="575" key="#com.intellij.ide.util.MemberChooser" timestamp="1582718409585">
+      <screen x="0" y="27" width="2560" height="1413" />
+    </state>
+    <state x="1088" y="431" width="374" height="575" key="#com.intellij.ide.util.MemberChooser/2560.0.1920.1080/0.27.2560.1413/4480.0.1920.1080@0.27.2560.1413" timestamp="1582718409585" />
+    <state x="883" y="388" width="784" height="661" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1582632591645">
+      <screen x="0" y="27" width="2560" height="1413" />
+    </state>
+    <state x="883" y="388" width="784" height="661" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog/2560.0.1920.1080/0.27.2560.1413/4480.0.1920.1080@0.27.2560.1413" timestamp="1582632591645" />
+    <state x="945" y="62" width="650" height="1314" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1582718863196">
+      <screen x="0" y="27" width="2560" height="1413" />
+    </state>
+    <state x="945" y="62" width="650" height="1314" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/2560.0.1920.1080/0.27.2560.1413/4480.0.1920.1080@0.27.2560.1413" timestamp="1582718863196" />
+    <state width="2514" height="622" key="GridCell.Tab.0.bottom" timestamp="1582718651537">
+      <screen x="0" y="27" width="2560" height="1413" />
+    </state>
+    <state width="2514" height="622" key="GridCell.Tab.0.bottom/2560.0.1920.1080/0.27.2560.1413/4480.0.1920.1080@0.27.2560.1413" timestamp="1582718651537" />
+    <state width="2514" height="622" key="GridCell.Tab.0.center" timestamp="1582718651536">
+      <screen x="0" y="27" width="2560" height="1413" />
+    </state>
+    <state width="2514" height="622" key="GridCell.Tab.0.center/2560.0.1920.1080/0.27.2560.1413/4480.0.1920.1080@0.27.2560.1413" timestamp="1582718651536" />
+    <state width="2514" height="622" key="GridCell.Tab.0.left" timestamp="1582718651536">
+      <screen x="0" y="27" width="2560" height="1413" />
+    </state>
+    <state width="2514" height="622" key="GridCell.Tab.0.left/2560.0.1920.1080/0.27.2560.1413/4480.0.1920.1080@0.27.2560.1413" timestamp="1582718651536" />
+    <state width="2514" height="622" key="GridCell.Tab.0.right" timestamp="1582718651536">
+      <screen x="0" y="27" width="2560" height="1413" />
+    </state>
+    <state width="2514" height="622" key="GridCell.Tab.0.right/2560.0.1920.1080/0.27.2560.1413/4480.0.1920.1080@0.27.2560.1413" timestamp="1582718651536" />
+    <state x="769" y="354" key="SettingsEditor" timestamp="1582655118873">
+      <screen x="0" y="27" width="2560" height="1413" />
+    </state>
+    <state x="769" y="354" key="SettingsEditor/2560.0.1920.1080/0.27.2560.1413/4480.0.1920.1080@0.27.2560.1413" timestamp="1582655118873" />
+    <state width="498" height="446" key="SwitcherDM" timestamp="1582629276124">
+      <screen x="0" y="27" width="2560" height="1413" />
+    </state>
+    <state width="498" height="446" key="SwitcherDM/2560.0.1920.1080/0.27.2560.1413/4480.0.1920.1080@0.27.2560.1413" timestamp="1582629276124" />
+    <state x="943" y="327" width="672" height="678" key="search.everywhere.popup" timestamp="1582657953378">
+      <screen x="0" y="27" width="2560" height="1413" />
+    </state>
+    <state x="943" y="327" width="672" height="678" key="search.everywhere.popup/2560.0.1920.1080/0.27.2560.1413/4480.0.1920.1080@0.27.2560.1413" timestamp="1582657953378" />
+  </component>
+</project>
