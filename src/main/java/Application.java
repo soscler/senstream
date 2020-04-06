@@ -1,23 +1,24 @@
 import engine.SSEHandler;
+import engine.sensor.Sensors;
 import engine.sensor.WeatherSensor;
 import io.javalin.Javalin;
 import lombok.extern.slf4j.Slf4j;
 
+import java.awt.*;
 import java.time.Duration;
 
 @Slf4j
 public class Application {
 
     public static void main(String[] args) throws Exception {
-        WeatherSensor sensor = new WeatherSensor(5, 0.0, 35.0, 2);
+        WeatherSensor sensor = Sensors.weatherSensor(5, 0.0, 35.0, 2000);
 
-        {
-            // Engine configuration
-            Thread t = new Thread(sensor);
-            t.start();
-        }
+        sensor.on();
+        sensor.start();
 
-        {
+
+
+       /* {
             // Web server configuration
             Javalin app = server();
             app.get("/", c-> {
@@ -26,11 +27,15 @@ public class Application {
             // SSEHandler.sensor = sensor;
             SSEHandler s = new SSEHandler(sensor);
             app.sse("/sse/", SSEHandler::getData);
-        }
+        }*/
 
         // Avoid the main thread to exist
         while (true) {
+            long start = System.currentTimeMillis();
             Thread.sleep(Duration.ofSeconds(2).toMillis());
+            sensor.display();
+            long stop = System.currentTimeMillis();
+            System.out.println("Duration " + (stop - start)/1000L);
         }
 
     }
@@ -41,8 +46,6 @@ public class Application {
 
         WeatherSensor sensor = new WeatherSensor(5, 0.0, 35.0, 2);
         System.out.println("Start weather temperature generation...");
-        Thread t = new Thread(sensor);
-        t.start();
         Thread.sleep(Duration.ofSeconds(durationSec).toMillis());
         sensor.off();
         System.out.println(sensor.isOn());

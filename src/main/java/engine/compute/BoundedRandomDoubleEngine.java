@@ -7,7 +7,7 @@ public class BoundedRandomDoubleEngine implements Engine<Double> {
     private double min;
     private double max;
 
-    BoundedRandomDoubleEngine(double min, double max) {
+    public BoundedRandomDoubleEngine(double min, double max) {
         this.min = min;
         this.max = max;
     }

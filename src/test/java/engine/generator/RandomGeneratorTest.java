@@ -8,7 +8,7 @@ import org.junit.jupiter.api.*;
 
 public class RandomGeneratorTest {
 
-    public NumericalRandomGeneratorImpl generator;
+    public Generator<Double> generator;
     public double min;
     public double max;
 
@@ -21,7 +21,7 @@ public class RandomGeneratorTest {
     public void init() {
         min = -25;
         max = 25;
-        generator =  new NumericalRandomGeneratorImpl(min, max);
+        generator =  Generators.doubleRandomGenerator(min, max);
         assertNotNull(generator);
     }
 

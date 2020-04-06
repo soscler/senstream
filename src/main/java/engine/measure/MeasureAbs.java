@@ -8,21 +8,26 @@ import java.util.Date;
 
 @Getter
 @Setter
-public abstract class MeasureAbs implements Measure {
+public abstract class MeasureAbs<T extends Measure> implements Measure {
 
     private Date date;
-    private double value;
+    private Double value;
     private String message;
-    private final Sensor sensor;
+    private final Sensor<T> sensor;
 
-
-    MeasureAbs(Sensor sensor) {
+    protected MeasureAbs(Sensor<T> sensor) {
         this.sensor = sensor;
     }
 
     @Override
+    public void resolve(Double value) {
+        this.value = value;
+        this.date = new Date();
+    }
+
+    @Override
     public String toString() {
-        return "Date: " + date.toString() + "\nValue: " + value + "\nMessage: " + message;
+        return "Date: " + date + "\nValue: " + value + "\nMessage: " + message;
     }
 
     @Override

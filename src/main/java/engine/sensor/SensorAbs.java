@@ -2,10 +2,16 @@ package engine.sensor;
 
 
 import engine.SensorException;
+import engine.generator.FrequencyGenerator;
+import engine.generator.Generators;
 import engine.measure.Measure;
 import lombok.Data;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.time.Duration;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Data
 public abstract class SensorAbs<T extends Measure> implements Sensor<T> {
@@ -14,18 +20,22 @@ public abstract class SensorAbs<T extends Measure> implements Sensor<T> {
     private boolean isOn = false;
     private String name;
     private String location;
-    private double minValue;
-    private double maxValue;
     private long frequencySecs;
+    private FrequencyGenerator<Double> generator;
+    private T measure;
+    private OutputStream out = System.out;
 
-    // Always content the current measure if on, or null if off
-    private Measure measure = null;
+    ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     SensorAbs(long id, double min, double max, long frequencySecs) {
         this.id = id;
-        this.minValue = min;
-        this.maxValue = max;
         this.frequencySecs = frequencySecs;
+        this.generator = Generators.doubleRandomFrequencyGenerator(frequencySecs, min, max);
+    }
+
+    SensorAbs(long id, FrequencyGenerator<Double> generator) {
+        this.id = id;
+        this.generator = generator;
     }
 
     @Override
@@ -36,32 +46,44 @@ public abstract class SensorAbs<T extends Measure> implements Sensor<T> {
     @Override
     public void off() {
         this.isOn = false;
-        this.measure =  null;
+        this.measure.resolve(null);
+        generator.stop();
+        this.executorService.shutdownNow();
     }
-
 
     @Override
     public void start() throws InterruptedException, SensorException {
-        on(); // Start the sensor if not started
-        while (isOn) {
-            Thread.sleep(Duration.ofSeconds(frequencySecs).toMillis());
-            measure();
+        if(!isOn) {
+            throw new SensorException("Sensor is not started");
         }
+        generator.start();
+        executorService.submit(() -> {
+            while (isOn) {
+                try {
+                    Thread.sleep(frequencySecs);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                Double value = generator.getValue();
+                measure.resolve(value);
+            }
+        });
     }
-
 
     @Override
-    public void display() throws SensorException {
-        //if (! isOn ) throw new SensorException("Sensor is off");
-        System.out.println("Sensor: " + id);
+    public void display() throws SensorException, IOException {
+        String msg;
+        if (! isOn ) throw new SensorException("Sensor is not started");
         if(measure == null) {
-            if(isOn) System.out.println("No data to show, please make sure the sensor is working");
-            else System.out.println("No data to show, please start the sensor");
+            msg = "Sensor: " + id + "No data to show, please make sure the sensor is working\n";
         }
-        else System.out.println(measure.toString());
+        else msg = "Sensor: " + id + "\n" + measure.toJson() + "\n";
+        out.write(msg.getBytes());
+        out.flush();
+
     }
 
-    public Measure getCurrentMeasure() {
+    public T getCurrentMeasure() {
         return this.measure;
     }
 

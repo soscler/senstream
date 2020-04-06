@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RandomFrequencyGeneratorTest {
 
-    public FrequencyGeneratorImplNumericalRandom generator;
+    public FrequencyGenerator<Double> generator;
     public long millis;
     public double min;
     public double max;
@@ -26,7 +26,7 @@ public class RandomFrequencyGeneratorTest {
         millis = 4000L;
         min = -25;
         max = 25;
-        generator =  new FrequencyGeneratorImplNumericalRandom(millis, min, max);
+        generator =  Generators.doubleRandomFrequencyGenerator(millis, min, max);
         assertNotNull(generator);
     }
 

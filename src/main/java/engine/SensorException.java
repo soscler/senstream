@@ -5,7 +5,7 @@ public class SensorException extends Exception {
     SensorException() {
         super();
     }
-    SensorException(String msg) {
+    public SensorException(String msg) {
         super(msg);
     }
 }
