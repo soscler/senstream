@@ -1,4 +1,5 @@
 import engine.SSEHandler;
+import engine.WeatherIOTSystem;
 import engine.sensor.Sensors;
 import engine.sensor.WeatherSensor;
 import io.javalin.Javalin;
@@ -11,11 +12,13 @@ import java.time.Duration;
 public class Application {
 
     public static void main(String[] args) throws Exception {
-        WeatherSensor sensor = Sensors.weatherSensor(5, 0.0, 35.0, 2000);
 
-        sensor.on();
-        sensor.start();
+        WeatherIOTSystem weatherIOTSystem = new WeatherIOTSystem();
+        for (int i = 0; i < 5; i++) {
+            weatherIOTSystem.register(Sensors.weatherSensor(i, 0.0, 35.0, 2000L +(i+1)*1000L));
+        }
 
+        weatherIOTSystem.start();
 
 
        /* {
@@ -30,14 +33,17 @@ public class Application {
         }*/
 
         // Avoid the main thread to exist
-        while (true) {
+        for (int i = 0; i < 2; i++) {
             long start = System.currentTimeMillis();
             Thread.sleep(Duration.ofSeconds(2).toMillis());
-            sensor.display();
+            weatherIOTSystem.display();
             long stop = System.currentTimeMillis();
             System.out.println("Duration " + (stop - start)/1000L);
         }
-
+        weatherIOTSystem.stop();
+        Thread.sleep(200);
+        weatherIOTSystem.display();
+        Thread.sleep(2000);
     }
 
 

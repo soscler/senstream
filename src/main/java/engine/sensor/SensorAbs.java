@@ -53,9 +53,10 @@ public abstract class SensorAbs<T extends Measure> implements Sensor<T> {
 
     @Override
     public void start() throws InterruptedException, SensorException {
-        if(!isOn) {
+        on();
+        /*if(!isOn) {
             throw new SensorException("Sensor is not started");
-        }
+        }*/
         generator.start();
         executorService.submit(() -> {
             while (isOn) {
