@@ -1,6 +1,6 @@
-package engine;
+package engine.measure;
 
-import lombok.Data;
+import engine.sensor.Sensor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,6 +27,6 @@ public abstract class MeasureAbs implements Measure {
 
     @Override
     public String toJson() {
-        return "{ date: " + date + ", value: " + value + ", message: " + message + "}";
+        return "{ 'date': " + date + ", value: " + value + ", message: " + message + "}";
     }
 }

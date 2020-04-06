@@ -1,8 +1,7 @@
-import engine.*;
+import engine.SSEHandler;
+import engine.sensor.WeatherSensor;
 import io.javalin.Javalin;
-import io.javalin.http.sse.SseClient;
 import lombok.extern.slf4j.Slf4j;
-import sun.awt.windows.ThemeReader;
 
 import java.time.Duration;
 
@@ -26,7 +25,7 @@ public class Application {
             });
             // SSEHandler.sensor = sensor;
             SSEHandler s = new SSEHandler(sensor);
-            app.sse("/sse/w", SSEHandler::getData);
+            app.sse("/sse/", SSEHandler::getData);
         }
 
         // Avoid the main thread to exist
@@ -53,7 +52,9 @@ public class Application {
     }
 
     static Javalin server() {
-        Javalin app = Javalin.create();
+        Javalin app = Javalin.create(c -> {
+            c.enableCorsForOrigin("http://localhost:4200");
+        });
         app.start(3000);
         return app;
     }

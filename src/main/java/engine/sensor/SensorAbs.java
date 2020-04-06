@@ -1,6 +1,8 @@
-package engine;
+package engine.sensor;
 
 
+import engine.SensorException;
+import engine.measure.Measure;
 import lombok.Data;
 
 import java.time.Duration;
@@ -31,22 +33,13 @@ public abstract class SensorAbs<T extends Measure> implements Sensor<T> {
         this.isOn = true;
     }
 
-    /**
-     * Turn off the sensor
-     * Make measure null so that Java Garbage Collector can free the memory
-     */
     @Override
     public void off() {
         this.isOn = false;
         this.measure =  null;
     }
 
-    /**
-     * Start the measurement process. This will turn on the sensor
-     * @throws InterruptedException
-     * @throws SensorException
-     * FIXME: Move the Thread run method here
-     */
+
     @Override
     public void start() throws InterruptedException, SensorException {
         on(); // Start the sensor if not started
@@ -56,10 +49,7 @@ public abstract class SensorAbs<T extends Measure> implements Sensor<T> {
         }
     }
 
-    /**
-     * Display the current measurement
-     * @throws SensorException
-     */
+
     @Override
     public void display() throws SensorException {
         //if (! isOn ) throw new SensorException("Sensor is off");

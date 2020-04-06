@@ -1,5 +1,7 @@
 package engine;
 
+import engine.measure.Measure;
+import engine.sensor.Sensor;
 import io.javalin.http.sse.SseClient;
 
 import java.util.function.BiConsumer;

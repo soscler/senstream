@@ -1,9 +1,9 @@
-package engine;
+package engine.sensor;
 
-import javafx.beans.binding.ObjectExpression;
+import engine.SensorException;
+import engine.measure.WeatherMeasure;
 
 import java.util.Date;
-import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class WeatherSensor extends SensorAbs<WeatherMeasure> implements Runnable, Sensor<WeatherMeasure> {
