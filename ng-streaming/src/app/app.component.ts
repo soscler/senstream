@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpService} from './shared/services/http.service';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +9,7 @@ export class AppComponent implements OnInit {
   title = 'ng-streaming';
   data = 'Test Data';
 
-  constructor(private httpService: HttpService) {
-    this.httpService = httpService;
+  constructor() {
     this.getEvent('sse/w');
   }
 

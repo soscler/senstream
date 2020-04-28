@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HttpService } from './http.service';
+import { StreamHttpService } from './stream-http.service';
 
-describe('HttpService', () => {
-  let service: HttpService;
+describe('StreamHttpService', () => {
+  let service: StreamHttpService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(HttpService);
+    service = TestBed.inject(StreamHttpService);
   });
 
   it('should be created', () => {

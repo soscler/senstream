@@ -2,33 +2,22 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {Constant} from '../constants/constant';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HttpService {
+export abstract class HttpService {
 
-  url = 'http://localhost:3000';
-
-  constructor(private httpClient: HttpClient) {
-    this.httpClient = httpClient;
+  protected constructor(public httpClient: HttpClient, public url: string,
+                        public router: Router) {
   }
 
-  public getById<T>(id: number): Observable<T> {
+  public getById<T>(id: number | string): Observable<T> {
     return this.httpClient.get<T>(this.url.concat(`/${id}`))
       .pipe(
         catchError(this.handleError<T>(`getById`, null))
       );
-  }
-
-  public getEvent<T>(endpoint: string) {
-    const source = new EventSource(this.url.concat(`/${endpoint}`));
-    let data;
-    source.onmessage = ev => {
-      data = ev.data;
-    };
-    console.log(data);
   }
 
   handleError<T>(operation = 'operation', result?: T ) {
