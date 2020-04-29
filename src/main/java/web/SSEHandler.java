@@ -1,7 +1,7 @@
-package engine;
+package web;
 
-import engine.measure.Measure;
-import engine.sensor.Sensor;
+import com.tsimul.device.sensor.Sensor;
+import com.tsimul.measure.Measure;
 import io.javalin.http.sse.SseClient;
 
 import java.util.function.BiConsumer;
@@ -9,14 +9,14 @@ import java.util.function.Consumer;
 
 public class SSEHandler  {
 
-    public static Sensor sensor;
+    public static Sensor<? extends Measure> sensor;
 
     /**
      * Dependency injection
      * @param sensor
      */
-    public SSEHandler(Sensor sensor) {
-        this.sensor = sensor;
+    public SSEHandler(Sensor<? extends Measure> sensor) {
+        SSEHandler.sensor = sensor;
     }
 
     public Consumer<SseClient> getData = s -> {
@@ -29,7 +29,7 @@ public class SSEHandler  {
         s.sendEvent("", m.toJson());
     }
 
-    public BiConsumer<SseClient, Sensor> biCTest = (c,s) -> {
+    public BiConsumer<SseClient, Sensor<? extends Measure>> biCTest = (c,s) -> {
 
     };
 }

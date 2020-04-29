@@ -1,6 +1,18 @@
 
-*SenML est une spécification qui se veut de faciliter la représentation et le transport des données 
-des capteurs sur internet.*
+# Objectif
+**Développer un système complet et autonome d'objects connectés**
+
+Le système est composé essentiellement de deux groupes d'éléments :
+- Les composants :\
+    Les composants sont subdivisés en deux catégories :
+    - Les capteurs
+    - Les actionneurs
+- Les plugins :\
+    Ce sont des petites application qui s'intègrent au système et fournissent des fonctionnalités supplémentaires.
+    
+
+**SenML est une spécification qui se veut de faciliter la représentation et le transport des données 
+des capteurs sur internet.**
 
 ## Comment gérer les données senML
 
@@ -10,7 +22,7 @@ des capteurs sur internet.*
 - Cette fonction lazy peut donc être utilisée dans plusieurs niveaux du système :
     - Affichage, Transport, etc.
 
-## Comment gérer les données batch senML avec notre IOTSystem ?
+## Comment gérer les données batch senML IOTSystem ?
 
 - Au niveau du system. Pour cela il deux types fonction
      - Une fonction qui produit le batch pour plusieurs capteurs du system.\
@@ -21,6 +33,14 @@ des capteurs sur internet.*
     - Une fonction qui produit le batch pour ce capteur, mais sous plusieurs intervalles de temps.\
     Cette fonction doit s'assurer de ne pas dupliquer des champs de base.
 
+## Comment gérer le transport des données ?
+
+Get /api : retourne les informations importantes sur le système :
+    - Pour chaque plugin, les détails sur son interface
+    - Pour chaque capteur, les informations sur celui-ci
+
+
+# Version actuelle : 1.0.0.alpha
 
 # Version 1.0.0
 
@@ -28,6 +48,8 @@ des capteurs sur internet.*
 - Tous les capteurs ont une horloge interne
 - Tous les capteurs ont la capacité d'affichage (écran, display)
 - Tous les capteurs produisent des données numériques (double)
+- Ajoute la notion d'actuateurs.
+    - À un actuateur est lié un objet qui réagit aux états de l'actuateur.
 
 # Version 1.1.0
 
@@ -38,4 +60,8 @@ des capteurs sur internet.*
     - Ils n'ont pas d'horloge interne.\
     Dans ce cas le système doit s'en occuper.
 - Ajouter un système de stockage dédié.
+- Ajouter un système d'analyse dédié.
 - Pouvoir sérialiser le système en entier (capteurs, mesures, configurations, etc.).
+- Un système peut avoir des sous systèmes.
+- Réfléchir à une meilleure technologie pour le multi-threading et le scheduling.\
+Voir [Quartz Scheduling](http://www.quartz-scheduler.org/).

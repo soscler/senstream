@@ -2,6 +2,7 @@ GET http://localhost:3000
 
 ###
 
-GET   http://localhost:3000/sse -H "Accept:text/event-stream"
+GET   http://localhost:3000/sse
 
 ###
+

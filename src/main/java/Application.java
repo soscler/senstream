@@ -1,15 +1,20 @@
-import engine.SSEHandler;
-import engine.WeatherIOTSystem;
-import engine.sensor.Sensors;
-import engine.sensor.WeatherSensor;
-import io.javalin.Javalin;
-import lombok.extern.slf4j.Slf4j;
+import com.tsimul.WeatherIOTSystem;
+import com.tsimul.device.sensor.Sensors;
+import com.tsimul.device.sensor.WeatherSensor;
 
-import java.awt.*;
 import java.time.Duration;
 
-@Slf4j
+
 public class Application {
+
+    /**
+     * Idée:
+     * Lire le fichier de configuration du système
+     * - Puis créer le système
+     * - Créer un web server et l'attacher au système ?
+     * @param args
+     * @throws Exception
+     */
 
     public static void main(String[] args) throws Exception {
 
@@ -20,20 +25,8 @@ public class Application {
 
         weatherIOTSystem.start();
 
-
-       /* {
-            // Web server configuration
-            Javalin app = server();
-            app.get("/", c-> {
-                c.result("Server App is running");
-            });
-            // SSEHandler.sensor = sensor;
-            SSEHandler s = new SSEHandler(sensor);
-            app.sse("/sse/", SSEHandler::getData);
-        }*/
-
-        // Avoid the main thread to exist
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Iteration " + i);
             long start = System.currentTimeMillis();
             Thread.sleep(Duration.ofSeconds(2).toMillis());
             weatherIOTSystem.display();
@@ -54,17 +47,10 @@ public class Application {
         System.out.println("Start weather temperature generation...");
         Thread.sleep(Duration.ofSeconds(durationSec).toMillis());
         sensor.off();
-        System.out.println(sensor.isOn());
         System.out.println("Stop weather temperature generation...");
         sensor.display();
 
     }
 
-    static Javalin server() {
-        Javalin app = Javalin.create(c -> {
-            c.enableCorsForOrigin("http://localhost:4200");
-        });
-        app.start(3000);
-        return app;
-    }
+
 }

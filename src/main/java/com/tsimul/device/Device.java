@@ -1,0 +1,27 @@
+package com.tsimul.device;
+
+import com.tsimul.exception.DeviceException;
+
+public interface Device {
+
+    /**
+     * Turn on the sensor
+     * @throws DeviceException
+     */
+    default void on() throws DeviceException {
+        throw new UnsupportedOperationException("This device does not support this operation");
+    }
+
+    /**
+     * Turn off the sensor
+     * Set measure to null so that Java Garbage Collector can free the memory
+     */
+    default void off() throws DeviceException {
+        throw new UnsupportedOperationException("This device does not support this operation");
+    }
+
+    default String toJson() {
+        throw new UnsupportedOperationException("This device does not support this method yet");
+    }
+
+}

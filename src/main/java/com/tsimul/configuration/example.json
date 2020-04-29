@@ -1,0 +1,36 @@
+{
+  "name": "My example iot system",
+  "description": "This is a description of my iot system",
+  "senMLVer": 10,
+  "sensors": {
+    "list": [
+      {
+        "id": "101",
+        "name": "temperature-sensor",
+        "generation": {
+          "type": "numerical",
+          "min": 4.0,
+          "max": 38.0,
+          "frequency": 2.0,
+          "unit": "cel",
+          "channel": "ws"
+        }
+      }
+    ]
+  },
+  "actuators": {
+    "base-channel": "http",
+    "list": [
+      {
+        "id": "102",
+        "name": "lights-actuators",
+        "generation": {
+          "type": "boolean",
+          "frequency": 3600
+        }
+      }
+    ]
+  }
+}
+
+
