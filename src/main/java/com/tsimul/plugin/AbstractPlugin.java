@@ -1,37 +1,34 @@
 package com.tsimul.plugin;
 
-public class AbstractPlugin implements Plugin {
+import com.tsimul.util.Metadata;
 
-    String id;
-    String name;
-    String description;
+public abstract class AbstractPlugin<M extends Metadata> implements Plugin {
 
-    public void process() {
-        throw new UnsupportedOperationException("This plugin has not yet implemented this method");
-    }
+    protected M metadata;
+
 
     public String getId() {
-        return id;
+        return this.metadata.getId();
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.metadata.setId(id);
     }
 
     public String getName() {
-        return name;
+        return this.metadata.getName();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.metadata.setName(name);
     }
 
     public String getDescription() {
-        return description;
+        return this.metadata.getDescription();
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.metadata.setDescription(description);
     }
 
 }

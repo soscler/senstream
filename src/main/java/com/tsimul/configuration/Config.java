@@ -18,4 +18,7 @@ package com.tsimul.configuration;
  */
 public class Config {
 
+    public void load(String filePath){}
+    public void load(){}
+
 }

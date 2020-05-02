@@ -90,6 +90,8 @@ public abstract class AbstractIOTSystem implements IOTSystem {
 
         // Publish the devices information
 
+        // plugins.forEach(p -> devices.forEach(p::process));
+
         // Publish the plugins information
     }
 

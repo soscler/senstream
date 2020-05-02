@@ -64,4 +64,13 @@ Get /api : retourne les informations importantes sur le système :
 - Pouvoir sérialiser le système en entier (capteurs, mesures, configurations, etc.).
 - Un système peut avoir des sous systèmes.
 - Réfléchir à une meilleure technologie pour le multi-threading et le scheduling.\
+- Il existe deux types de plugins
+    - Les plugins qui nécessitent des droits admins\
+    Ces plugins ont accès à toute l'interface du système y compris les devices
+    Peut éteindre et redémarré le système et les capteurs.
+    - Les plugins qui n'ont pas de droits d'accès.\
+    Ces plugins ne peuvent pas agir directement sur les contrôles du système.
+    Ces plugins reçoivent "uniquement" des données.
+        - On peut penser à permettre à ces plugins de transmettre des informations au système.\
+        Par exemple demander au système d'éteindre un capteur donné parce que le plugin a reçu une donnée anormale.
 Voir [Quartz Scheduling](http://www.quartz-scheduler.org/).

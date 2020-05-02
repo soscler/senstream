@@ -13,13 +13,14 @@
           "max": 38.0,
           "frequency": 2.0,
           "unit": "cel",
-          "channel": "ws"
+          "transport": "ws",
+          "storage": "enable"
         }
       }
     ]
   },
   "actuators": {
-    "base-channel": "http",
+    "base-transport": "http",
     "list": [
       {
         "id": "102",

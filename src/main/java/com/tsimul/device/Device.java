@@ -20,6 +20,10 @@ public interface Device {
         throw new UnsupportedOperationException("This device does not support this operation");
     }
 
+    /**
+     * TODO: Should this function be here ?
+     * @return
+     */
     default String toJson() {
         throw new UnsupportedOperationException("This device does not support this method yet");
     }
