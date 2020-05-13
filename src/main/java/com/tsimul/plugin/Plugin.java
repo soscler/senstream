@@ -1,6 +1,7 @@
 package com.tsimul.plugin;
 
 import com.tsimul.device.Device;
+import com.tsimul.event.Observable;
 
 /**
  *

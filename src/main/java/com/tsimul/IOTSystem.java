@@ -1,13 +1,15 @@
 package com.tsimul;
 
 import com.tsimul.device.sensor.Sensor;
+import com.tsimul.event.Observable;
+import com.tsimul.event.Observer;
 import com.tsimul.measure.Measure;
 import com.tsimul.plugin.Plugin;
 
 /**
  * An IOT System is a system composed of multiple sensor
  */
-public interface IOTSystem {
+public interface IOTSystem extends Observable, Observer {
 
     /**
      * Turn on the system
@@ -27,6 +29,11 @@ public interface IOTSystem {
     public void display();
 
     /**
+     * TODO: Create an interface Pluggable to unify any component that can be plugged to the system
+     * Should we separate simulated hardware from software
+     */
+
+    /**
      * Add a new sensor to the system
      * @param sensor the sensor to be added to the system
      */
@@ -41,20 +48,26 @@ public interface IOTSystem {
     /**
      * Register a new plugin to the system
      */
-    default void registerPlugin(Plugin p) {
+    default void plugin(Plugin p) {
         throw new UnsupportedOperationException("The system does not support plugins");
     }
 
     /**
      * De-register a plugin from the system
      */
-    default void deregisterPlugin(Plugin p) {
+    default void unplug(Plugin p) {
         throw new UnsupportedOperationException("The system does not support plugins");
     }
 
     default String toJson() {
         throw new UnsupportedOperationException("This plugin does not support this method yet");
     }
+
+    /**
+     * This method is called whenever there is an event in a device
+     * Then the system decides either or not to send the event to a plugin
+     */
+    default public void update() {}
 
     /**
      * TODO: Complete the interface with useful methods for the system

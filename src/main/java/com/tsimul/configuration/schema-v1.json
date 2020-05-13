@@ -1,36 +1,140 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "name": "string",
-  "description": "string",
-  "senMLVer": "number",
-  "sensors": {
-    "list": [
-      {
-        "id": "number",
-        "name": "string",
-        "data": {
-          "type": "string",
-          "min": "number",
-          "max": "number",
-          "frequency": "number",
-          "unit": "string",
-          "channel": "string"
+  "$id": "",
+  "description": "This is the schema of the system configuration file",
+
+  "definitions": {
+
+    "sensor": {
+      "$id": "#sensor",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#device"
         }
-      }
-    ]
+      ]
+    },
+
+    "actuator": {
+      "$id": "#actuator",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#device"
+        }
+      ]
+    },
+
+    "device": {
+      "type": "object",
+      "$id": "#device",
+      "allOf": [
+        {
+          "$ref": "#metadata"
+        },
+        {
+          "properties": {
+            "generation": {
+              "$ref": "#generation"
+            },
+            "transport": {
+              "type": "string",
+              "enum": ["http", "ws", "kafka"]
+            },
+            "storage": {
+              "type": "string",
+              "enum": ["cassandra", "mongodb"]
+            },
+            "analytics": {
+              "type": "string",
+              "enum": ["basic", "advanced", "expert"]
+            }
+          }
+        }
+      ]
+    },
+
+    "metadata": {
+      "type": "object",
+      "$id": "#metadata",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "name"]
+    },
+
+    "generation": {
+      "type": "object",
+      "$id": "#generation",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["numerical", "boolean"]
+        },
+        "frequency": {
+          "type": "number"
+        }
+      },
+      "if": {
+        "properties": {
+          "type": {
+            "const": "numerical"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "min": {
+            "type": "number"
+          },
+          "max": {
+            "type": "number"
+          }
+        },
+        "required": ["min", "max"]
+      },
+      "required": ["type", "frequency"]
+    }
   },
-  "actuators": {
-    "base-channel": "string",
-    "list": [
-      {
-        "id": "string",
-        "name": "string",
-        "generation": {
-          "type": "string",
-          "frequency": "number"
-        }
-      }
-    ]
-  }
+
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "maxLength": 250
+    },
+    "senMLVersion": {
+      "type:": "nonNegativeInteger",
+      "maximum": 10
+    },
+    "sensors": {
+      "type": "array",
+      "items": {
+        "$ref": "#sensor"
+      },
+      "uniqueItems": true
+    },
+    "actuators": {
+      "type": "array",
+      "items": {
+        "$ref": "#actuator"
+      },
+      "uniqueItems": true
+    }
+  },
+
+  "required": ["name", "senMLVersion"],
+  "additionalProperties": false
 }
 

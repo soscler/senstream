@@ -3,7 +3,7 @@ package com.tsimul.device.sensor;
 import com.tsimul.generator.FrequencyGenerator;
 import com.tsimul.measure.WeatherAbstractMeasure;
 
-public class WeatherSensor extends SensorAbs<WeatherAbstractMeasure> {
+public class WeatherSensor extends AbstractSensor<WeatherAbstractMeasure> {
 
 
     public WeatherSensor(long id, double min, double max, long freq) {

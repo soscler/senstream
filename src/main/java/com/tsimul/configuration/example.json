@@ -1,37 +1,27 @@
 {
-  "name": "My example iot system",
-  "description": "This is a description of my iot system",
-  "senMLVer": 10,
-  "sensors": {
-    "list": [
-      {
-        "id": "101",
-        "name": "temperature-sensor",
-        "generation": {
-          "type": "numerical",
-          "min": 4.0,
-          "max": 38.0,
-          "frequency": 2.0,
-          "unit": "cel",
-          "transport": "ws",
-          "storage": "enable"
-        }
+  "name": "Weather IOT System",
+  "senMLVersion": 10,
+  "sensors": [
+    {
+      "id": "5",
+      "name": "Temperature sensor room 1",
+      "generation": {
+        "type": "numerical",
+        "frequency": 2,
+        "min": 4.0,
+        "max": 38.0
       }
-    ]
-  },
-  "actuators": {
-    "base-transport": "http",
-    "list": [
-      {
-        "id": "102",
-        "name": "lights-actuators",
-        "generation": {
-          "type": "boolean",
-          "frequency": 3600
-        }
+    },
+
+    {
+      "id": "sensor-02",
+      "name": "Temperature sensor Room 2",
+      "generation": {
+        "type": "numerical",
+        "frequency": 5,
+        "min": 5,
+        "max": 10
       }
-    ]
-  }
+    }
+  ]
 }
-
-

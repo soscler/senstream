@@ -40,6 +40,10 @@ Get /api : retourne les informations importantes sur le système :
     - Pour chaque capteur, les informations sur celui-ci
 
 
+
+## Prérequis
+- Java 8+
+
 # Version actuelle : 1.0.0.alpha
 
 # Version 1.0.0
@@ -50,6 +54,14 @@ Get /api : retourne les informations importantes sur le système :
 - Tous les capteurs produisent des données numériques (double)
 - Ajoute la notion d'actuateurs.
     - À un actuateur est lié un objet qui réagit aux états de l'actuateur.
+- Il existe un moyen de communication entre les devices et le système.
+- Il existe un moyen de communication entre les plugins et le système et les devices.
+
+Un plugin peut décider de s'abonner à certains types d'évènement provenant des devices.
+
+event.on("on", () => {$Do_Something});
+event.on("off", () => {$Do_Something});
+event.on("update", () => {$Do_Something});
 
 # Version 1.1.0
 

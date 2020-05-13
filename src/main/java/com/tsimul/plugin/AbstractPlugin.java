@@ -1,11 +1,12 @@
 package com.tsimul.plugin;
 
+import com.tsimul.event.AbstractObservable;
+import com.tsimul.event.AbstractObserver;
 import com.tsimul.util.Metadata;
 
 public abstract class AbstractPlugin<M extends Metadata> implements Plugin {
 
     protected M metadata;
-
 
     public String getId() {
         return this.metadata.getId();

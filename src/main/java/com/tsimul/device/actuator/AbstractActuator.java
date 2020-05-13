@@ -1,8 +1,9 @@
 package com.tsimul.device.actuator;
 
+import com.tsimul.device.AbstractDevice;
 import com.tsimul.exception.DeviceException;
 
-public abstract class AbstractActuator implements Actuator {
+public abstract class AbstractActuator extends AbstractDevice implements Actuator {
 
 
     @Override

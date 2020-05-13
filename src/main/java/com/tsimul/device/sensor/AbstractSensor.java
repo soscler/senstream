@@ -1,6 +1,8 @@
 package com.tsimul.device.sensor;
 
 
+import com.tsimul.device.AbstractDevice;
+import com.tsimul.event.Event;
 import com.tsimul.exception.SensorException;
 import com.tsimul.generator.FrequencyGenerator;
 import com.tsimul.generator.Generators;
@@ -10,11 +12,12 @@ import lombok.Data;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Data
-public abstract class SensorAbs<T extends Measure> implements Sensor<T> {
+public abstract class AbstractSensor<T extends Measure> extends AbstractDevice implements Sensor<T> {
 
     private final long id;
     private boolean isOn = false;
@@ -27,13 +30,14 @@ public abstract class SensorAbs<T extends Measure> implements Sensor<T> {
 
     ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-    SensorAbs(long id, double min, double max, long millis) {
+    AbstractSensor(long id, double min, double max, long millis) {
+        super();
         this.id = id;
         this.millis = millis;
         this.generator = Generators.doubleRandomFrequencyGenerator(millis, min, max);
     }
 
-    SensorAbs(long id, FrequencyGenerator<Double> generator) {
+    AbstractSensor(long id, FrequencyGenerator<Double> generator) {
         this.id = id;
         this.generator = generator;
     }
@@ -41,6 +45,7 @@ public abstract class SensorAbs<T extends Measure> implements Sensor<T> {
     @Override
     public void on() {
         this.isOn = true;
+        this.emitEvent(new Event().setType("on"));
     }
 
     @Override
@@ -66,6 +71,8 @@ public abstract class SensorAbs<T extends Measure> implements Sensor<T> {
                     Thread.currentThread().interrupt();
                 }
                 Double value = generator.getValue();
+                this.emitEvent(new Event().setType(Thread.currentThread().getName() + " Update " + this.id + " time: " + new Date() + "\n" +
+                        "Class " + this.getClass()));
                 measure.resolve(value);
             }
         });

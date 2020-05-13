@@ -33,16 +33,16 @@ public abstract class AbstractFrequencyGenerator<T> implements FrequencyGenerato
     @Override
     public void start() {
         AtomicBoolean error = new AtomicBoolean();
-        error.set(true);
+        error.set(false);
         executorService.submit(() -> {
             try {
-                while (error.get()) {
+                while (!error.get()) {
                     Thread.sleep(this.millis);
                     this.value = generator.generate();
                 }
             } catch (InterruptedException e) {
                 log.warn(e.getMessage());
-                error.set(false);
+                error.set(true);
                 this.value = null;
                 Thread.currentThread().interrupt();
             }
