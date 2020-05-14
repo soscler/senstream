@@ -7,16 +7,19 @@ import java.util.List;
 /**
  * Class used to define all primordial fields and common methods
  */
-public abstract class AbstractDevice implements Device {
+public abstract class AbstractDevice<M extends DeviceMetadata> implements Device {
 
     private final ObserverImpl observer;
     private final ObservableImpl observable;
+    private final M metadata;
 
-    public AbstractDevice() {
+    public AbstractDevice(M metadata) {
         super();
+        this.metadata = metadata;
         this.observer = new ObserverImpl(this);
         this.observable = new ObservableImpl();
     }
+
 
 
     @Override
@@ -68,5 +71,34 @@ public abstract class AbstractDevice implements Device {
     public void unsubscribeFromObservable(List<? extends Observable> observables) {
         this.observer.unsubscribeFromObservable(observables);
 
+    }
+
+    public long getId() {
+        return this.metadata.getId();
+    }
+
+    public void setId(long id) {
+        this.metadata.setId(id);
+    }
+
+    public String getName() {
+        return this.metadata.getName();
+    }
+
+    public void setName(String name) {
+        this.metadata.setName(name);
+    }
+
+    public String getDescription() {
+        return this.metadata.getDescription();
+    }
+
+    public void setDescription(String description) {
+        this.metadata.setDescription(description);
+    }
+
+    @Override
+    public String toString() {
+        return metadata.toString();
     }
 }

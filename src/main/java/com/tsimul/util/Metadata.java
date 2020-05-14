@@ -43,4 +43,14 @@ public class Metadata {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "Metadata{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", version='" + version + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

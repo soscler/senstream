@@ -3,8 +3,9 @@
   "senMLVersion": 10,
   "sensors": [
     {
-      "id": "5",
-      "name": "Temperature sensor room 1",
+      "metadata": {
+        "name": "Temperature sensor room 1"
+      },
       "generation": {
         "type": "NUMERICAL",
         "frequency": 2.0,
@@ -14,8 +15,9 @@
     },
 
     {
-      "id": "sensor-02",
-      "name": "Temperature sensor Room 2",
+      "metadata": {
+        "name": "Temperature sensor room 2"
+      },
       "generation": {
         "type": "NUMERICAL",
         "frequency": 5,

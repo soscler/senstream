@@ -51,12 +51,12 @@ public class Application {
     static void startEngine(long durationSec) throws Exception {
 
 
-        WeatherSensor sensor = new WeatherSensor(5, 0.0, 35.0, 2);
+       /* WeatherSensor sensor = new WeatherSensor(5, 0.0, 35.0, 2);
         System.out.println("Start weather temperature generation...");
         Thread.sleep(Duration.ofSeconds(durationSec).toMillis());
         sensor.off();
         System.out.println("Stop weather temperature generation...");
-        sensor.display();
+        sensor.display();*/
 
     }
 

@@ -3,8 +3,7 @@ package com.tsimul;
 import com.google.gson.*;
 import com.tsimul.configuration.Config;
 import com.tsimul.configuration.ConfigDetail;
-import com.tsimul.device.sensor.Sensor;
-import com.tsimul.device.sensor.SensorIpml;
+import com.tsimul.device.DeviceMetadata;
 import com.tsimul.device.sensor.Sensors;
 import com.tsimul.exception.ConfigurationException;
 
@@ -42,10 +41,11 @@ public class IOTSystemBuilder extends AbstractIOTSystemBuilder {
         IOTSystemImpl iotSystem = new IOTSystemImpl();
         iotSystem.setName(configDetail.getName());
         configDetail.getSensors().forEach(s -> {
+            System.out.println(s.getMetadata().toString());
             if(s.getGeneration().getType() == ConfigDetail.GenerationType.NUMERICAL) {
                 System.out.println(s.getGeneration().toString());
                 iotSystem.register(Sensors.defaultSensor(
-                        ThreadLocalRandom.current().nextLong(),
+                        s.getMetadata(),
                         s.getGeneration().getMin(),
                         s.getGeneration().getMax(),
                         (long) s.getGeneration().getFrequency()));

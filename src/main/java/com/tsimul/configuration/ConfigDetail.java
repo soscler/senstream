@@ -1,5 +1,6 @@
 package com.tsimul.configuration;
 
+import com.tsimul.device.DeviceMetadata;
 import com.tsimul.util.Metadata;
 
 import java.util.Collections;
@@ -21,7 +22,7 @@ public class ConfigDetail {
 
     public static class DeviceDetail {
 
-        private Metadata metadata;
+        private DeviceMetadata metadata;
         private Generation generation;
         private TransportType transport = TransportType.HTTP;
         private StorageType storage = StorageType.MONGODB;
@@ -30,7 +31,7 @@ public class ConfigDetail {
         public DeviceDetail() {
         }
 
-        public DeviceDetail(Metadata metadata, Generation generation) {
+        public DeviceDetail(DeviceMetadata metadata, Generation generation) {
             this.metadata = metadata;
             this.generation = generation;
         }
@@ -90,11 +91,11 @@ public class ConfigDetail {
             }
         }
 
-        public Metadata getMetadata() {
+        public DeviceMetadata getMetadata() {
             return metadata;
         }
 
-        public void setMetadata(Metadata metadata) {
+        public void setMetadata(DeviceMetadata metadata) {
             this.metadata = metadata;
         }
 

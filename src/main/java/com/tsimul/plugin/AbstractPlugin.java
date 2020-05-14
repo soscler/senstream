@@ -30,4 +30,10 @@ public abstract class AbstractPlugin<M extends Metadata> implements Plugin {
         this.metadata.setDescription(description);
     }
 
+
+    @Override
+    public String toString() {
+        return metadata.toString();
+    }
+
 }

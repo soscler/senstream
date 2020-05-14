@@ -14,7 +14,7 @@ public class Starter {
 
     public static void main(String[] args) {
 
-        WeatherSensor sensor = Sensors.weatherSensor(1, 0.0, 35.0, 2000L);
+        WeatherSensor sensor = Sensors.weatherSensor(null, 0.0, 35.0, 2000L);
         try {
             sensor.start();
             log.info("Sensor on...");
