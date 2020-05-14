@@ -23,11 +23,11 @@ public class ConfigDetail {
 
         private Metadata metadata;
         private Generation generation;
-        private TransportType transportType = TransportType.HTTP;
-        private StorageType storageType = StorageType.MONGODB;
-        private AnalyticsType analyticsType = AnalyticsType.BASIC;
+        private TransportType transport = TransportType.HTTP;
+        private StorageType storage = StorageType.MONGODB;
+        private AnalyticsType analytics = AnalyticsType.BASIC;
 
-        private DeviceDetail() {
+        public DeviceDetail() {
         }
 
         public DeviceDetail(Metadata metadata, Generation generation) {
@@ -37,7 +37,7 @@ public class ConfigDetail {
 
         public static class Generation {
 
-            private String type;
+            private GenerationType type;
             private double frequency;
             private double min;
             private double max;
@@ -45,23 +45,23 @@ public class ConfigDetail {
             public Generation() {
             }
 
-            public Generation(String type, double frequency) {
+            public Generation(GenerationType type, double frequency) {
                 this.type = type;
                 this.frequency = frequency;
             }
 
-            public Generation(String type, double frequency, double min, double max) {
+            public Generation(GenerationType type, double frequency, double min, double max) {
                 this.type = type;
                 this.frequency = frequency;
                 this.min = min;
                 this.max = max;
             }
 
-            public String getType() {
+            public GenerationType getType() {
                 return type;
             }
 
-            public void setType(String type) {
+            public void setType(GenerationType type) {
                 this.type = type;
             }
 
@@ -106,28 +106,28 @@ public class ConfigDetail {
             this.generation = generation;
         }
 
-        public TransportType getTransportType() {
-            return transportType;
+        public TransportType getTransport() {
+            return transport;
         }
 
-        public void setTransportType(TransportType transportType) {
-            this.transportType = transportType;
+        public void setTransport(TransportType transportType) {
+            this.transport = transportType;
         }
 
-        public StorageType getStorageType() {
-            return storageType;
+        public StorageType getStorage() {
+            return storage;
         }
 
-        public void setStorageType(StorageType storageType) {
-            this.storageType = storageType;
+        public void setStorage(StorageType storage) {
+            this.storage = storage;
         }
 
-        public AnalyticsType getAnalyticsType() {
-            return analyticsType;
+        public AnalyticsType getAnalytics() {
+            return analytics;
         }
 
-        public void setAnalyticsType(AnalyticsType analyticsType) {
-            this.analyticsType = analyticsType;
+        public void setAnalytics(AnalyticsType analytics) {
+            this.analytics = analytics;
         }
     }
 

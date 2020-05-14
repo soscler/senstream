@@ -31,39 +31,22 @@ public class Application {
         String dataPath = "src/main/java/com/tsimul/configuration/example.json";
         String data = new String(Files.readAllBytes(Paths.get(dataPath)));
         Config config = new Config(data);
-        IOTSystemImpl system = (IOTSystemImpl) new IOTSystemBuilder(config).config(config).build();
+        IOTSystemImpl system = (IOTSystemImpl) new IOTSystemBuilder(config).build();
         system.start();
-        system.getSensors().forEach(s -> {
-            System.out.println(s.toJson());
-        });
-//        system.start();
 
-        /*com.tsimul.IOTSystemImpl weatherIOTSystem = new com.tsimul.IOTSystemImpl();
-        for (int i = 0; i < 5; i++) {
-            weatherIOTSystem.register(Sensors.weatherSensor(i, 0.0, 35.0, 2000L +(i+1)*1000L));
-        }
-
-        WeatherSensor sensor = Sensors.weatherSensor(5, 0.0, 35.0, 1000L);
-        weatherIOTSystem.register(sensor);
-
-        weatherIOTSystem.subscribeToObservable(weatherIOTSystem.getSensors());
-
-        weatherIOTSystem.start();*/
-
-        /*for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             System.out.println("Iteration " + i);
             long start = System.currentTimeMillis();
-            Thread.sleep(Duration.ofSeconds(2).toMillis());
-            weatherIOTSystem.display();
+            Thread.sleep(Duration.ofSeconds(5).toMillis());
+            system.display();
             long stop = System.currentTimeMillis();
             System.out.println("Duration " + (stop - start)/1000L);
         }
-        weatherIOTSystem.stop();
+        system.stop();
         Thread.sleep(200);
-        weatherIOTSystem.display();
-        Thread.sleep(2000);*/
+        system.display();
+        Thread.sleep(2000);
     }
-
 
     static void startEngine(long durationSec) throws Exception {
 

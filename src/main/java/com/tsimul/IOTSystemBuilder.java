@@ -8,10 +8,11 @@ import com.tsimul.device.sensor.SensorIpml;
 import com.tsimul.device.sensor.Sensors;
 import com.tsimul.exception.ConfigurationException;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import static com.tsimul.util.Util.*;
 
 public class IOTSystemBuilder extends AbstractIOTSystemBuilder {
-
 
     private Config config;
 
@@ -35,32 +36,24 @@ public class IOTSystemBuilder extends AbstractIOTSystemBuilder {
         if (! isValidConfiguration(config.getConfigJson())) {
             throw new ConfigurationException("Invalid Json. Please refer to the schema version");
         }
-
-        ConfigDetail configDetail = new Gson().fromJson(config.getConfigJson(), ConfigDetail.class);
-        System.out.println(configDetail.getName());
-        configDetail.getSensors().forEach(s -> {
-            System.out.println(s.getTransportType());
-        });
+        Gson gson = new Gson();
+        ConfigDetail configDetail = gson.fromJson(config.getConfigJson(), ConfigDetail.class);
 
         IOTSystemImpl iotSystem = new IOTSystemImpl();
         iotSystem.setName(configDetail.getName());
         configDetail.getSensors().forEach(s -> {
-            System.out.println(s.getGeneration().getType());
-            if(s.getGeneration().getType() == "ConfigDetail.GenerationType.NUMERICAL") {
+            if(s.getGeneration().getType() == ConfigDetail.GenerationType.NUMERICAL) {
                 System.out.println(s.getGeneration().toString());
                 iotSystem.register(Sensors.defaultSensor(
-                        s.getMetadata().getId(),
+                        ThreadLocalRandom.current().nextLong(),
                         s.getGeneration().getMin(),
                         s.getGeneration().getMax(),
                         (long) s.getGeneration().getFrequency()));
-
             }
         });
         iotSystem.subscribeToObservable(iotSystem.getSensors());
 
         return iotSystem;
     }
-
-
 
 }

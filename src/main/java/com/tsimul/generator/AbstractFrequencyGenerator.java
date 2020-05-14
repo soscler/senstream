@@ -2,6 +2,7 @@ package com.tsimul.generator;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.Duration;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,7 +15,7 @@ public abstract class AbstractFrequencyGenerator<T> implements FrequencyGenerato
     private T value = null;
     private Generator<T> generator;
 
-    private ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public AbstractFrequencyGenerator(Generator<T> generator, long millis) {
         Objects.requireNonNull(generator);
@@ -37,7 +38,7 @@ public abstract class AbstractFrequencyGenerator<T> implements FrequencyGenerato
         executorService.submit(() -> {
             try {
                 while (!error.get()) {
-                    Thread.sleep(this.millis);
+                    Thread.sleep(Duration.ofSeconds(this.millis).toMillis());
                     this.value = generator.generate();
                 }
             } catch (InterruptedException e) {

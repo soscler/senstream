@@ -6,8 +6,8 @@
       "id": "5",
       "name": "Temperature sensor room 1",
       "generation": {
-        "type": "numerical",
-        "frequency": 2,
+        "type": "NUMERICAL",
+        "frequency": 2.0,
         "min": 4.0,
         "max": 38.0
       }
@@ -17,12 +17,12 @@
       "id": "sensor-02",
       "name": "Temperature sensor Room 2",
       "generation": {
-        "type": "numerical",
+        "type": "NUMERICAL",
         "frequency": 5,
         "min": 5,
         "max": 10
       },
-      "transport": "ws"
+      "transport": "WS"
     }
   ]
 }

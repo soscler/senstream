@@ -39,15 +39,15 @@
             },
             "transport": {
               "type": "string",
-              "enum": ["http", "ws", "kafka"]
+              "enum": ["HTTP", "WS", "KAFKA"]
             },
             "storage": {
               "type": "string",
-              "enum": ["cassandra", "mongodb"]
+              "enum": ["CASSANDRA", "MONGODB"]
             },
             "analytics": {
               "type": "string",
-              "enum": ["basic", "advanced", "expert"]
+              "enum": ["BASIC", "ADVANCED", "EXPERT"]
             }
           }
         }
@@ -80,7 +80,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": ["numerical", "boolean"]
+          "enum": ["NUMERICAL", "BOOLEAN"]
         },
         "frequency": {
           "type": "number"

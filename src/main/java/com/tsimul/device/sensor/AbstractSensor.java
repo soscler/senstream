@@ -12,6 +12,7 @@ import lombok.Data;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -28,7 +29,7 @@ public abstract class AbstractSensor<T extends Measure> extends AbstractDevice i
     private T measure;
     private OutputStream out = System.out;
 
-    ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     AbstractSensor(long id, double min, double max, long millis) {
         super();
@@ -66,13 +67,12 @@ public abstract class AbstractSensor<T extends Measure> extends AbstractDevice i
         executorService.submit(() -> {
             while (isOn) {
                 try {
-                    Thread.sleep(millis);
+                    Thread.sleep(Duration.ofSeconds(this.millis).toMillis());
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
                 Double value = generator.getValue();
-                this.emitEvent(new Event().setType(Thread.currentThread().getName() + " Update " + this.id + " time: " + new Date() + "\n" +
-                        "Class " + this.getClass()));
+                this.emitEvent(new Event().setType("update " + this.id + " time: " + new Date()));
                 measure.resolve(value);
             }
         });
