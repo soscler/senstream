@@ -1,7 +1,6 @@
 package com.tsimul.configuration;
 
 import com.tsimul.device.DeviceMetadata;
-import com.tsimul.util.Metadata;
 
 import java.util.Collections;
 import java.util.List;

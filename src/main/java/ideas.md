@@ -48,6 +48,12 @@ Get /api : retourne les informations importantes sur le système :
 
 # Version 1.0.0
 
+- L'emission des évènements doit être asynchrone.
+    - Si le 'capteur' n'a pas pu émettre
+    un évènement, cela ne doit pas l'empêcher de continuer son processus ?
+    - En cas de réception d'une grande quantité d'évènements. Le plugin doit s'assurer le bon traitement
+    des évènements.
+        - Par exemples, en créant d'autres threads qui s'en occuperont.
 - Tous les capteurs ont la capacité de produire des données senML.
 - Tous les capteurs ont une horloge interne
 - Tous les capteurs ont la capacité d'affichage (écran, display)

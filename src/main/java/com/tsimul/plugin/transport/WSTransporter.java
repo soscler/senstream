@@ -7,6 +7,9 @@ import com.tsimul.measure.Measure;
  */
 public class WSTransporter <T extends Measure> extends AbstractTransporter<T> {
 
+    /**
+     * TODO: create a Plugins class that will provide singleton default plugins
+     */
     WSTransporter() {
         super();
         super.metadata.setType("ws");

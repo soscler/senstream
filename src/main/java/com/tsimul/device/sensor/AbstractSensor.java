@@ -8,8 +8,6 @@ import com.tsimul.exception.SensorException;
 import com.tsimul.generator.FrequencyGenerator;
 import com.tsimul.generator.Generators;
 import com.tsimul.measure.Measure;
-import com.tsimul.measure.MeasureImpl;
-import lombok.Data;
 
 import java.io.IOException;
 import java.io.OutputStream;

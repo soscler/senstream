@@ -1,8 +1,5 @@
 package com.tsimul.configuration;
 
-import com.tsimul.IOTSystem;
-import org.json.JSONObject;
-
 /**
  * Idea: Read a config file (json) and generate an iot system
  * The config file contains the sensors to be generated and their specifications

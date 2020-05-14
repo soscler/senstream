@@ -99,6 +99,7 @@ public abstract class AbstractIOTSystem implements IOTSystem {
      */
     public void deregister(Sensor<? extends Measure> sensor) {
         sensors.remove(sensor);
+        unsubscribeFromObservable(sensor);
     }
 
     @Override
@@ -165,6 +166,23 @@ public abstract class AbstractIOTSystem implements IOTSystem {
         this.observer.unsubscribeFromObservable(observables);
 
     }
+
+    @Override
+    public void plugin(Plugin p) {
+        plugins.add(p);
+        registerObserver(p);
+        Event e = new Event();
+        e.setType(Event.EventType.REGISTER.toString());
+        this.emitEvent(e);
+    }
+
+    @Override
+    public void unplug(Plugin p) {
+        plugins.remove(p);
+
+        unregisterObserver(p);
+    }
+
 
     public void startWebServer() {
         // Publish the system global information

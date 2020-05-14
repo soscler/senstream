@@ -1,15 +1,12 @@
 package com.tsimul;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
 import com.tsimul.configuration.Config;
 import com.tsimul.configuration.ConfigDetail;
-import com.tsimul.device.DeviceMetadata;
 import com.tsimul.device.sensor.Sensors;
 import com.tsimul.exception.ConfigurationException;
 
-import java.util.concurrent.ThreadLocalRandom;
-
-import static com.tsimul.util.Util.*;
+import static com.tsimul.util.Util.isValidConfiguration;
 
 public class IOTSystemBuilder extends AbstractIOTSystemBuilder {
 

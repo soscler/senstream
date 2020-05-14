@@ -3,8 +3,10 @@ package com.tsimul.device.sensor;
 import com.tsimul.device.DeviceMetadata;
 import com.tsimul.generator.FrequencyGenerator;
 import com.tsimul.measure.MeasureImpl;
-import com.tsimul.measure.WeatherAbstractMeasure;
 
+/**
+ * TODO: Make Sensor Metadata ?
+ */
 public class SensorImpl extends AbstractSensor<MeasureImpl, DeviceMetadata> {
 
     public SensorImpl(DeviceMetadata metadata, double min, double max, long freq) {

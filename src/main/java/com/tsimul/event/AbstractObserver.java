@@ -1,7 +1,5 @@
 package com.tsimul.event;
 
-import com.tsimul.device.sensor.Sensor;
-
 import java.util.ArrayList;
 import java.util.List;
 

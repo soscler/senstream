@@ -10,4 +10,11 @@ public interface Observable {
     void unregisterObserver(List<? extends Observer> observers);
     void emitEvent();
     void emitEvent(Event event);
+
+    /**
+     * TODO: Create this method to notify a specific observer o the event e
+     * void emitEvent(Event e, Observer o)
+     * TODO: Create this method to notify a specific group of observers the event e
+     * void emitEvent(Event e, List<? extends Observer> observers)
+     */
 }

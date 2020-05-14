@@ -3,6 +3,11 @@ import com.tsimul.IOTSystemBuilder;
 import com.tsimul.IOTSystemImpl;
 import com.tsimul.WeatherIOTSystem;
 import com.tsimul.configuration.Config;
+import com.tsimul.device.AbstractDevice;
+import com.tsimul.device.Device;
+import com.tsimul.device.actuator.AbstractActuator;
+import com.tsimul.device.actuator.Actuator;
+import com.tsimul.device.sensor.AbstractSensor;
 import com.tsimul.device.sensor.Sensor;
 import com.tsimul.device.sensor.Sensors;
 import com.tsimul.device.sensor.WeatherSensor;
@@ -39,6 +44,19 @@ public class Application {
             long start = System.currentTimeMillis();
             Thread.sleep(Duration.ofSeconds(5).toMillis());
             system.display();
+            if(i == 3) {
+                system.getSensors().forEach(s -> {
+                    System.out.println(s instanceof Sensor);
+                    System.out.println(s instanceof Device);
+                    System.out.println(s instanceof AbstractSensor);
+                    System.out.println(s instanceof AbstractDevice);
+                    System.out.println(s instanceof Actuator);
+                    System.out.println(s instanceof AbstractActuator);
+                    System.out.println(s instanceof Observable);
+                    System.out.println(s instanceof IOTSystem);
+                });
+                system.unsubscribeFromObservable(system.getSensors());
+            }
             long stop = System.currentTimeMillis();
             System.out.println("Duration " + (stop - start)/1000L);
         }

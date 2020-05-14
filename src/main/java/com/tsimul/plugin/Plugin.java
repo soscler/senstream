@@ -2,6 +2,7 @@ package com.tsimul.plugin;
 
 import com.tsimul.device.Device;
 import com.tsimul.event.Observable;
+import com.tsimul.event.Observer;
 
 /**
  *
@@ -9,7 +10,7 @@ import com.tsimul.event.Observable;
  * Any plugin should therefore implement this interface
  * Requirements:
  */
-public interface Plugin {
+public interface Plugin extends Observer, Observable {
     default String toJson() {
         throw new UnsupportedOperationException("This plugin does not support this method yet");
     }
