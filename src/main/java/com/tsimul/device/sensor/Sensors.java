@@ -13,4 +13,8 @@ public class Sensors {
     public static WeatherSensor weatherSensor(long id, double min, double max, long frequency) {
         return new WeatherSensor(id, min, max, frequency);
     }
+
+    public static Sensor defaultSensor(long id, double min, double max, long frequency) {
+        return new SensorIpml(id, min, max, frequency);
+    }
 }

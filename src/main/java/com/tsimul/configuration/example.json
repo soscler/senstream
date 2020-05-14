@@ -21,7 +21,8 @@
         "frequency": 5,
         "min": 5,
         "max": 10
-      }
+      },
+      "transport": "ws"
     }
   ]
 }

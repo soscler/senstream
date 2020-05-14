@@ -41,6 +41,14 @@ public abstract class AbstractIOTSystem implements IOTSystem {
         this.observable = new ObservableImpl();
     }
 
+    public AbstractIOTSystem(Metadata metadata) {
+        super();
+        this.metadata = metadata;
+        app = Javalin.create();
+        this.observer = new ObserverImpl(this);
+        this.observable = new ObservableImpl();
+    }
+
     @Override
     public void start() {
         sensors.forEach(sensor -> {
@@ -219,11 +227,11 @@ public abstract class AbstractIOTSystem implements IOTSystem {
         return plugins;
     }
 
-    public String getId() {
+    public long getId() {
         return this.metadata.getId();
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.metadata.setId(id);
     }
 

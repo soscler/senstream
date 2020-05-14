@@ -2,7 +2,9 @@ package com.tsimul;
 
 import com.google.gson.*;
 import com.tsimul.configuration.Config;
+import com.tsimul.configuration.ConfigDetail;
 import com.tsimul.device.sensor.Sensor;
+import com.tsimul.device.sensor.SensorIpml;
 import com.tsimul.device.sensor.Sensors;
 import com.tsimul.exception.ConfigurationException;
 
@@ -27,27 +29,38 @@ public class IOTSystemBuilder extends AbstractIOTSystemBuilder {
         return this;
     }
 
-    private Sensor resolveSensor(JsonElement sensorElt) {
-        System.out.println(sensorElt);
-        return null;
-    }
-
     @Override
     public IOTSystem build() throws ConfigurationException {
 
         if (! isValidConfiguration(config.getConfigJson())) {
             throw new ConfigurationException("Invalid Json. Please refer to the schema version");
         }
-        JsonElement root = JsonParser.parseString(config.getConfigJson());
-        IOTSystemImpl iotSystem = new IOTSystemImpl();
-        iotSystem.setName(root.getAsJsonObject().get("name").getAsString());
-        System.out.println(root.getAsJsonObject().getAsJsonPrimitive("description"));
 
-        JsonElement sensorsArray = root.getAsJsonObject().get("sensors");
-        if(sensorsArray != null) {
-            JsonArray sensors = sensorsArray.getAsJsonArray();
-            sensors.forEach(this::resolveSensor);
-        }
+        ConfigDetail configDetail = new Gson().fromJson(config.getConfigJson(), ConfigDetail.class);
+        System.out.println(configDetail.getName());
+        configDetail.getSensors().forEach(s -> {
+            System.out.println(s.getTransportType());
+        });
+
+        IOTSystemImpl iotSystem = new IOTSystemImpl();
+        iotSystem.setName(configDetail.getName());
+        configDetail.getSensors().forEach(s -> {
+            System.out.println(s.getGeneration().getType());
+            if(s.getGeneration().getType() == "ConfigDetail.GenerationType.NUMERICAL") {
+                System.out.println(s.getGeneration().toString());
+                iotSystem.register(Sensors.defaultSensor(
+                        s.getMetadata().getId(),
+                        s.getGeneration().getMin(),
+                        s.getGeneration().getMax(),
+                        (long) s.getGeneration().getFrequency()));
+
+            }
+        });
+        iotSystem.subscribeToObservable(iotSystem.getSensors());
+
         return iotSystem;
     }
+
+
+
 }

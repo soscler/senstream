@@ -1,5 +1,6 @@
 import com.tsimul.IOTSystem;
 import com.tsimul.IOTSystemBuilder;
+import com.tsimul.IOTSystemImpl;
 import com.tsimul.WeatherIOTSystem;
 import com.tsimul.configuration.Config;
 import com.tsimul.device.sensor.Sensor;
@@ -30,7 +31,12 @@ public class Application {
         String dataPath = "src/main/java/com/tsimul/configuration/example.json";
         String data = new String(Files.readAllBytes(Paths.get(dataPath)));
         Config config = new Config(data);
-        IOTSystem system = new IOTSystemBuilder(config).config(config).build();
+        IOTSystemImpl system = (IOTSystemImpl) new IOTSystemBuilder(config).config(config).build();
+        system.start();
+        system.getSensors().forEach(s -> {
+            System.out.println(s.toJson());
+        });
+//        system.start();
 
         /*com.tsimul.IOTSystemImpl weatherIOTSystem = new com.tsimul.IOTSystemImpl();
         for (int i = 0; i < 5; i++) {
