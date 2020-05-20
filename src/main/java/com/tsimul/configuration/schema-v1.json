@@ -74,6 +74,28 @@
       "required": ["name"]
     },
 
+
+    "plugin": {
+      "$id": "#plugin",
+      "allOf": [
+        {
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["TRANSPORT", "ANALYTICS", "STORAGE", "OTHER"]
+            },
+            "metadata": {
+              "$ref": "#metadata"
+            },
+            "event": {
+              "type": "string",
+              "enum": ["ON", "OFF", "UPDATE"]
+            }
+          }
+        }
+      ]
+    },
+
     "generation": {
       "type": "object",
       "$id": "#generation",
@@ -107,6 +129,7 @@
       "required": ["type", "frequency"]
     }
   },
+
 
   "type": "object",
   "properties": {

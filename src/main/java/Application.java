@@ -1,3 +1,5 @@
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.tsimul.IOTSystem;
 import com.tsimul.IOTSystemBuilder;
 import com.tsimul.IOTSystemImpl;
@@ -12,6 +14,7 @@ import com.tsimul.device.sensor.Sensor;
 import com.tsimul.device.sensor.Sensors;
 import com.tsimul.device.sensor.WeatherSensor;
 import com.tsimul.event.Observable;
+import com.tsimul.helpers.ResourceModule;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -36,8 +39,10 @@ public class Application {
         String dataPath = "src/main/java/com/tsimul/configuration/example.json";
         String data = new String(Files.readAllBytes(Paths.get(dataPath)));
         Config config = new Config(data);
-        IOTSystemImpl system = (IOTSystemImpl) new IOTSystemBuilder(config).build();
+        Injector injector = Guice.createInjector(new ResourceModule());
+        IOTSystem system = injector.getInstance(IOTSystemBuilder.class).config(config).build();
         system.start();
+
 
         for (int i = 0; i < 10; i++) {
             System.out.println("Iteration " + i);

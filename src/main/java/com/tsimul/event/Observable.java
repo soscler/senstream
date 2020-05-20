@@ -1,5 +1,7 @@
 package com.tsimul.event;
 
+import com.tsimul.util.Metadata;
+
 import java.util.List;
 
 public interface Observable {
@@ -9,7 +11,7 @@ public interface Observable {
     void unregisterObserver(Observer observer);
     void unregisterObserver(List<? extends Observer> observers);
     void emitEvent();
-    void emitEvent(Event event);
+    void emitEvent(Event<? extends Metadata> event);
 
     /**
      * TODO: Create this method to notify a specific observer o the event e

@@ -8,10 +8,10 @@ import com.tsimul.measure.Measure;
  * For future a release, we will see this class as a sub class of MessagingTransporter
  * @param <T>
  */
-public class KafkaTransporter<T extends Measure> extends AbstractTransporter<T> {
+public class KafkaTransporter<T extends Measure> extends AbstractTransporter<T, TransporterMetadata> {
 
     KafkaTransporter() {
-        super();
+        super(null);
         super.metadata.setType("kafka");
     }
 

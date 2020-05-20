@@ -1,5 +1,7 @@
 package com.tsimul.event;
 
+import com.tsimul.util.Metadata;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,11 @@ public abstract class AbstractObservable implements Observable {
     }
 
     @Override
-    public void emitEvent(Event e) {
+    public void emitEvent(Event<? extends Metadata> e) {
         this.observers.forEach(o -> o.processEvent(e));
+    }
+
+    public List<Observer> getObservers() {
+        return observers;
     }
 }

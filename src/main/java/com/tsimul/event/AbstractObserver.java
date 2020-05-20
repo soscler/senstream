@@ -1,5 +1,7 @@
 package com.tsimul.event;
 
+import com.tsimul.util.Metadata;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public abstract class AbstractObserver implements Observer {
     }
 
     @Override
-    public synchronized void processEvent(Event e) {
+    public synchronized void processEvent(Event<? extends Metadata> e) {
         this.processor.processEvent(e);
     }
 
@@ -52,5 +54,9 @@ public abstract class AbstractObserver implements Observer {
     public void unsubscribeFromObservable(List<? extends Observable> observables) {
         observables.forEach(this::unsubscribeFromObservable);
         // subjects.removeAll(observables);
+    }
+
+    public List<Observable> getSubjects() {
+        return subjects;
     }
 }

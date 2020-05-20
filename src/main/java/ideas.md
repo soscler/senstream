@@ -14,6 +14,16 @@ Le système est composé essentiellement de deux groupes d'éléments :
 **SenML est une spécification qui se veut de faciliter la représentation et le transport des données 
 des capteurs sur internet.**
 
+## Structure rapide
+
+Tout object doit être identifiable. Ces identifiants doivent être facilement lisible par l'humain.
+Ci-dessous sont les informations minimales pour identifier un object.
+- `name` (Unique) : Pour ne pas clasher avec les identifiants des bases de données et des différents autres services, il est préférable
+d'utiliser `name` plutôt qu'id.
+- `version` : Représente la version actuelle de l'outil
+- `createdAt` : La date de création de l'object
+- `description` : une description courte sur l'objet.
+
 ## Comment gérer les données senML
 
 - Il faut faire la conversion vers senML en mode lazy
@@ -39,7 +49,19 @@ Get /api : retourne les informations importantes sur le système :
     - Pour chaque plugin, les détails sur son interface
     - Pour chaque capteur, les informations sur celui-ci
 
+## Comment gérer les plugins ?
 
+L'idéal serait d'éviter que les plugins aient un accès direct aux ressources du système.
+Imaginer un plugin qui a les droits pour supprimer les capteurs ou même stopper le système !
+
+Pour cela :
+- Avoir une liste des ressources à publier :
+    - Stockage
+    - Transport
+    - Analytics ? (Un gros travail)
+    
+    Écrire des wrappers pour envelopper ces ressources publiables et grâces à des interfaces,
+    limiter l'acces de ces ressources.
 
 ## Prérequis
 - Java 8+

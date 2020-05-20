@@ -47,7 +47,10 @@ public abstract class AbstractSensor<T extends Measure, M extends DeviceMetadata
     @Override
     public void on() {
         this.isOn = true;
-        this.emitEvent(new Event().setType("on"));
+        DeviceMetadata metadata = new DeviceMetadata();
+        Event<DeviceMetadata> e = new Event<>(null);
+        e.setType(Event.EventType.ON);
+        this.emitEvent(e);
     }
 
     @Override
@@ -73,7 +76,7 @@ public abstract class AbstractSensor<T extends Measure, M extends DeviceMetadata
                     Thread.currentThread().interrupt();
                 }
                 Double value = generator.getValue();
-                this.emitEvent(new Event().setType("update " + getName()+ " time: " + new Date()));
+                this.emitEvent(new Event(null).setType(Event.EventType.UPDATE));
                 measure.resolve(value);
             }
         });

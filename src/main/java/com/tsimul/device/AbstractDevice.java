@@ -1,6 +1,7 @@
 package com.tsimul.device;
 
 import com.tsimul.event.*;
+import com.tsimul.util.Metadata;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public abstract class AbstractDevice<M extends DeviceMetadata> implements Device
     }
 
     @Override
-    public void emitEvent(Event event) {
+    public void emitEvent(Event<? extends Metadata> event) {
         this.observable.emitEvent(event);
     }
 

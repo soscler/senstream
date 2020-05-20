@@ -1,6 +1,7 @@
 package com.tsimul;
 
 import com.google.gson.Gson;
+import com.google.inject.Inject;
 import com.tsimul.device.Device;
 import com.tsimul.device.sensor.Sensor;
 import com.tsimul.event.*;
@@ -22,29 +23,29 @@ public abstract class AbstractIOTSystem implements IOTSystem {
     /**
      * TODO: Create a class to store the metadata ?
      */
-    private Metadata metadata;
+    private final Metadata metadata;
     private final Javalin app;
     private final Observer observer;
     private final Observable observable;
 
     // TODO: Make sure to use the right collection
-    // Since there is a unique identifier for each sensor, use a hash map instead ?
-    private final List<Sensor<? extends Measure>> sensors = new ArrayList<>();
+    // Since there is a unique identifier for each sensor, use a hash map or a Set instead ?
+    private final List<Sensor<Measure>> sensors = new ArrayList<>();
     private final List<Device> devices = new ArrayList<>();
     private final List<Plugin> plugins = new ArrayList<>();
 
-    public AbstractIOTSystem() {
+    public AbstractIOTSystem(Javalin app) {
         super();
         this.metadata = new Metadata();
-        app = Javalin.create();
+        this.app = app;
         this.observer = new ObserverImpl(this);
         this.observable = new ObservableImpl();
     }
 
-    public AbstractIOTSystem(Metadata metadata) {
+    public AbstractIOTSystem(Metadata metadata, Javalin app) {
         super();
         this.metadata = metadata;
-        app = Javalin.create();
+        this.app = app;
         this.observer = new ObserverImpl(this);
         this.observable = new ObservableImpl();
     }
@@ -89,7 +90,7 @@ public abstract class AbstractIOTSystem implements IOTSystem {
     }
 
 
-    public void register(Sensor<? extends Measure> sensor) {
+    public void register(Sensor<Measure> sensor) {
         sensors.add(sensor);
     }
 
@@ -97,7 +98,7 @@ public abstract class AbstractIOTSystem implements IOTSystem {
      * TODO Make sure the remove works, so make sure the equals fonction of Sensor works fine
      * @param sensor
      */
-    public void deregister(Sensor<? extends Measure> sensor) {
+    public void deregister(Sensor<Measure> sensor) {
         sensors.remove(sensor);
         unsubscribeFromObservable(sensor);
     }
@@ -110,7 +111,7 @@ public abstract class AbstractIOTSystem implements IOTSystem {
     }
 
     @Override
-    public void processEvent(Event e) {
+    public void processEvent(Event<? extends Metadata> e) {
         System.out.println("\033[0;36m");
         System.out.println("Received event: " + e.getType());
         System.out.println("\033[0m");
@@ -142,7 +143,7 @@ public abstract class AbstractIOTSystem implements IOTSystem {
     }
 
     @Override
-    public void emitEvent(Event event) {
+    public void emitEvent(Event<? extends Metadata> event) {
         this.observable.emitEvent(event);
     }
 
@@ -171,8 +172,8 @@ public abstract class AbstractIOTSystem implements IOTSystem {
     public void plugin(Plugin p) {
         plugins.add(p);
         registerObserver(p);
-        Event e = new Event();
-        e.setType(Event.EventType.REGISTER.toString());
+        Event<Metadata> e = new Event<>(this.metadata);
+        e.setType(Event.EventType.REGISTER);
         this.emitEvent(e);
     }
 
@@ -183,16 +184,22 @@ public abstract class AbstractIOTSystem implements IOTSystem {
         unregisterObserver(p);
     }
 
+    private void configureSensor(Sensor<Measure> sensor) {
+        app.get("/sensor/:name", ctx -> {
+            ctx.json(sensor.toJson());
+        });
+    }
 
     public void startWebServer() {
         // Publish the system global information
 
-        app.get("description", ctx -> {
+        app.get("/description", ctx -> {
             ctx.json(metadata);
         });
-        app.get("info", ctx -> {
+        app.get("/info/", ctx -> {
             ctx.json(metadata);
         });
+
 
         // Publish the devices information
 
@@ -233,7 +240,7 @@ public abstract class AbstractIOTSystem implements IOTSystem {
     }
 
 
-    public List<Sensor<? extends Measure>> getSensors() {
+    public List<Sensor<Measure>> getSensors() {
         return sensors;
     }
 

@@ -10,6 +10,8 @@ public class Metadata {
     private String version;
     private String description;
 
+    //  TODO: add createdAt field ?
+
     public Metadata() {}
 
     public long getId() {

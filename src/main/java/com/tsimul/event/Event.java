@@ -2,18 +2,31 @@ package com.tsimul.event;
 
 import com.tsimul.util.Metadata;
 
-public class Event {
+/**
+ * TODO: Add generic parameter to represent the from metadata
+ */
+public class Event<T extends Metadata> {
 
-    private String type;
+    private EventType type;
     private Metadata metadata;
+    private final T _from;
 
-    public String getType() {
+    public Event(T from) {
+        _from = from;
+    }
+
+
+    public EventType getType() {
         return type;
     }
 
-    public Event setType(String type) {
+    public Event setType(EventType type) {
         this.type = type;
         return this;
+    }
+
+    public T from() {
+        return _from;
     }
 
     public enum  EventType {

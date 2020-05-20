@@ -1,10 +1,13 @@
 package com.tsimul;
 
+import com.tsimul.device.Device;
 import com.tsimul.device.sensor.Sensor;
 import com.tsimul.event.Observable;
 import com.tsimul.event.Observer;
 import com.tsimul.measure.Measure;
 import com.tsimul.plugin.Plugin;
+
+import java.util.List;
 
 /**
  * An IOT System is a system composed of multiple sensor
@@ -15,18 +18,18 @@ public interface IOTSystem extends Observable, Observer {
      * Turn on the system
      * This will try to turn on all the sensors inside the system
      */
-    public void start();
+    void start();
 
     /**
      * Turn off the system
      * This will try to turn off all the sensors inside the system
      */
-    public void stop();
+    void stop();
 
     /**
      * Display useful information of the system
      */
-    public void display();
+    void display();
 
     /**
      * TODO: Create an interface Pluggable to unify any component that can be plugged to the system
@@ -37,13 +40,13 @@ public interface IOTSystem extends Observable, Observer {
      * Add a new sensor to the system
      * @param sensor the sensor to be added to the system
      */
-    public void register(Sensor<? extends Measure> sensor);
+    void register(Sensor<Measure> sensor);
 
     /**
      * Remove a sensor from the system
      * @param sensor the sensor to be removed from the system
      */
-    public void deregister(Sensor<? extends Measure> sensor);
+    void deregister(Sensor<Measure> sensor);
 
     /**
      * Register a new plugin to the system
@@ -68,6 +71,8 @@ public interface IOTSystem extends Observable, Observer {
      * Then the system decides either or not to send the event to a plugin
      */
     default public void update() {}
+
+    List<Sensor<Measure>> getSensors();
 
     /**
      * TODO: Complete the interface with useful methods for the system
