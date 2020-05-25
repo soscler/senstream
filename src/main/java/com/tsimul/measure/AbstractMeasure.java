@@ -1,16 +1,17 @@
 package com.tsimul.measure;
 
+import com.google.gson.Gson;
 import com.tsimul.device.sensor.Sensor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.Instant;
 
 @Getter
 @Setter
 public abstract class AbstractMeasure<T extends Measure> implements Measure {
 
-    private Date date;
+    private final Instant date = Instant.now();
     private Double value;
     private String message;
     private final Sensor<T> sensor;
@@ -22,7 +23,6 @@ public abstract class AbstractMeasure<T extends Measure> implements Measure {
     @Override
     public void resolve(Double value) {
         this.value = value;
-        this.date = new Date();
     }
 
     @Override
@@ -32,6 +32,6 @@ public abstract class AbstractMeasure<T extends Measure> implements Measure {
 
     @Override
     public String toJson() {
-        return "{ 'date': " + date + ", value: " + value + ", message: " + message + "}";
+        return new Gson().toJson(this);
     }
 }

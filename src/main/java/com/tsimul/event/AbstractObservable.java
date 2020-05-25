@@ -1,6 +1,6 @@
 package com.tsimul.event;
 
-import com.tsimul.util.Metadata;
+import com.tsimul.base.Metadata;
 
 import java.util.ArrayList;
 import java.util.List;

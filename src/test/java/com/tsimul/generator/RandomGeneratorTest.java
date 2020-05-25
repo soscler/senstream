@@ -3,10 +3,11 @@ package com.tsimul.generator;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.tsimul.TestConfig;
 import org.junit.jupiter.api.*;
 
 
-public class RandomGeneratorTest {
+public class RandomGeneratorTest implements TestConfig {
 
     public Generator<Double> generator;
     public double min;

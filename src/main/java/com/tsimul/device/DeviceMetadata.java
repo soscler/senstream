@@ -1,6 +1,7 @@
 package com.tsimul.device;
 
-import com.tsimul.util.Metadata;
+import com.tsimul.base.Metadata;
+import org.jetbrains.annotations.NotNull;
 
 public class DeviceMetadata extends Metadata {
 
@@ -8,7 +9,11 @@ public class DeviceMetadata extends Metadata {
     private double longitude;
 
     public DeviceMetadata() {
-        super();
+        super("DefaultDevice", "DefaultDeviceVersion", "defaultDeviceDescription");
+    }
+
+    public DeviceMetadata(@NotNull String name, @NotNull String version, @NotNull String description) {
+        super(name, version, description);
     }
 
     public double getLatitude() {
@@ -25,5 +30,10 @@ public class DeviceMetadata extends Metadata {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    @Override
+    public String toJson() {
+        throw new UnsupportedOperationException("This method is not yet implemented");
     }
 }

@@ -1,7 +1,7 @@
 package web;
 
+import com.tsimul.device.sensor.Sensor;
 import com.tsimul.device.sensor.Sensors;
-import com.tsimul.device.sensor.WeatherSensor;
 import com.tsimul.exception.SensorException;
 import io.javalin.Javalin;
 import io.javalin.core.JavalinConfig;
@@ -14,7 +14,7 @@ public class Starter {
 
     public static void main(String[] args) {
 
-        WeatherSensor sensor = Sensors.weatherSensor(null, 0.0, 35.0, 2000L);
+        Sensor sensor = Sensors.defaultSensor(null, 0.0, 35.0, 2000L);
         try {
             sensor.start();
             log.info("Sensor on...");

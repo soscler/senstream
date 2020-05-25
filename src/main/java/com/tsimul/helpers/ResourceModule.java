@@ -4,10 +4,12 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.tsimul.IOTSystem;
-import com.tsimul.IOTSystemBuilder;
 import com.tsimul.IOTSystemImpl;
 import io.javalin.Javalin;
 
+/**
+ * Configure Dependency injection
+ */
 public class ResourceModule extends AbstractModule {
 
     @Override
@@ -19,5 +21,7 @@ public class ResourceModule extends AbstractModule {
     Javalin webAppProvider() {
         return Javalin.create();
     }
+
+
 
 }

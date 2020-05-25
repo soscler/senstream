@@ -1,10 +1,11 @@
 package com.tsimul.device;
 
+import com.tsimul.base.Thing;
 import com.tsimul.event.Observable;
 import com.tsimul.event.Observer;
 import com.tsimul.exception.DeviceException;
 
-public interface Device extends Observable, Observer {
+public interface Device extends Observable, Observer, Thing {
 
     /**
      * Turn on the sensor

@@ -2,8 +2,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.tsimul.IOTSystem;
 import com.tsimul.IOTSystemBuilder;
-import com.tsimul.IOTSystemImpl;
-import com.tsimul.WeatherIOTSystem;
 import com.tsimul.configuration.Config;
 import com.tsimul.device.AbstractDevice;
 import com.tsimul.device.Device;
@@ -11,16 +9,12 @@ import com.tsimul.device.actuator.AbstractActuator;
 import com.tsimul.device.actuator.Actuator;
 import com.tsimul.device.sensor.AbstractSensor;
 import com.tsimul.device.sensor.Sensor;
-import com.tsimul.device.sensor.Sensors;
-import com.tsimul.device.sensor.WeatherSensor;
 import com.tsimul.event.Observable;
 import com.tsimul.helpers.ResourceModule;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class Application {

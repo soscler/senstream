@@ -1,9 +1,11 @@
 package com.tsimul.device;
 
 import com.tsimul.event.*;
-import com.tsimul.util.Metadata;
+import com.tsimul.base.Metadata;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Class used to define all primordial fields and common methods
@@ -20,7 +22,6 @@ public abstract class AbstractDevice<M extends DeviceMetadata> implements Device
         this.observer = new ObserverImpl(this);
         this.observable = new ObservableImpl();
     }
-
 
 
     @Override
@@ -74,14 +75,12 @@ public abstract class AbstractDevice<M extends DeviceMetadata> implements Device
 
     }
 
-    public long getId() {
+    @Override
+    public UUID getId() {
         return this.metadata.getId();
     }
 
-    public void setId(long id) {
-        this.metadata.setId(id);
-    }
-
+    @Override
     public String getName() {
         return this.metadata.getName();
     }
@@ -90,12 +89,28 @@ public abstract class AbstractDevice<M extends DeviceMetadata> implements Device
         this.metadata.setName(name);
     }
 
+    @Override
     public String getDescription() {
         return this.metadata.getDescription();
     }
 
     public void setDescription(String description) {
         this.metadata.setDescription(description);
+    }
+
+    @Override
+    public Instant getCreatedAt() {
+        return this.metadata.getCreatedAt();
+    }
+
+    @Override
+    public String getVersion() {
+        return this.metadata.getVersion();
+    }
+
+    @Override
+    public String toJson() {
+        return this.metadata.toJson();
     }
 
     @Override

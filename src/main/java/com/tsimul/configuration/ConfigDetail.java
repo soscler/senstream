@@ -14,10 +14,10 @@ public class ConfigDetail {
 
     // private Metadata metadata; TODO: Use metadata
     private String name;
+    private String description;
     private String senMLVersion;
     private List<DeviceDetail> sensors = Collections.emptyList();
     private List<DeviceDetail> actuators = Collections.emptyList();
-
 
     public static class DeviceDetail {
 
@@ -153,6 +153,14 @@ public class ConfigDetail {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getSenMLVersion() {

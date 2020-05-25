@@ -23,7 +23,7 @@ public class RandomFrequencyGeneratorTest {
 
     @BeforeEach
     public void init() {
-        millis = 4000L;
+        millis = 4L;
         min = -25;
         max = 25;
         generator =  Generators.doubleRandomFrequencyGenerator(millis, min, max);

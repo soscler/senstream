@@ -1,5 +1,7 @@
 package com.tsimul;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.tsimul.configuration.Config;
@@ -13,7 +15,6 @@ public class IOTSystemBuilder extends AbstractIOTSystemBuilder {
 
     private Config config;
     private final IOTSystem iotSystem;
-
 
     /**
      * TODO: Add a default config and make this constructor public
@@ -32,16 +33,23 @@ public class IOTSystemBuilder extends AbstractIOTSystemBuilder {
     //TODO: Find a way to make the constructor stateless ?
 
     @Override
-    public IOTSystem build() throws ConfigurationException {
+    public IOTSystem build() throws ConfigurationException, JsonProcessingException {
 
         if (! isValidConfiguration(config.getConfigJson())) {
             throw new ConfigurationException("Invalid Json. Please refer to the schema version");
         }
         Gson gson = new Gson();
-        ConfigDetail configDetail = gson.fromJson(config.getConfigJson(), ConfigDetail.class);
+        ObjectMapper mapper = new ObjectMapper();
+
+        ConfigDetail configDetail = mapper.readValue(config.getConfigJson(), ConfigDetail.class);
 
         // TODO: Use DI and IOTSystem as a @Singleton
-        ((AbstractIOTSystem)iotSystem).setName(configDetail.getName());
+        iotSystem.setName(configDetail.getName());
+        iotSystem.setDescription(configDetail.getDescription());
+
+        System.out.println("-----------------------------------------" +
+                "\n" + iotSystem.toJson());
+
         configDetail.getSensors().forEach(s -> {
             switch (s.getGeneration().getType()) {
                 case NUMERICAL:
@@ -52,16 +60,12 @@ public class IOTSystemBuilder extends AbstractIOTSystemBuilder {
                             (long) s.getGeneration().getFrequency()));
                     break;
                 case BOOLEAN:
-                    System.out.println();
                     throw new UnsupportedOperationException();
                 default:
                     break;
-
             }
         });
-        iotSystem.subscribeToObservable(((AbstractIOTSystem)iotSystem).getSensors());
-
+        iotSystem.subscribeToObservable(iotSystem.getSensors());
         return iotSystem;
     }
-
 }

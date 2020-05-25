@@ -1,9 +1,10 @@
 package com.tsimul.plugin;
 
 import com.tsimul.event.*;
-import com.tsimul.util.Metadata;
+import com.tsimul.base.Metadata;
 
 import java.util.List;
+import java.util.UUID;
 
 public abstract class AbstractPlugin<M extends Metadata> implements Plugin {
 
@@ -70,12 +71,8 @@ public abstract class AbstractPlugin<M extends Metadata> implements Plugin {
 
     }
 
-    public long getId() {
+    public UUID getId() {
         return this.metadata.getId();
-    }
-
-    public void setId(long id) {
-        this.metadata.setId(id);
     }
 
     public String getName() {
@@ -93,7 +90,6 @@ public abstract class AbstractPlugin<M extends Metadata> implements Plugin {
     public void setDescription(String description) {
         this.metadata.setDescription(description);
     }
-
 
     @Override
     public String toString() {

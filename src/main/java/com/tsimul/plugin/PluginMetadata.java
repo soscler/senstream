@@ -1,6 +1,7 @@
 package com.tsimul.plugin;
 
-import com.tsimul.util.Metadata;
+import com.tsimul.base.Metadata;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A Sub type of @see {@link Metadata}
@@ -39,8 +40,8 @@ public class PluginMetadata<T> extends Metadata {
      */
     private T type;
 
-    public PluginMetadata() {
-        super();
+    public PluginMetadata(@NotNull String name, @NotNull String version, @NotNull String description) {
+        super(name, version, description);
     }
 
     public T getType() {

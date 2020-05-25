@@ -1,6 +1,6 @@
 package com.tsimul.event;
 
-import com.tsimul.util.Metadata;
+import com.tsimul.base.Metadata;
 
 /**
  * TODO: Add generic parameter to represent the from metadata

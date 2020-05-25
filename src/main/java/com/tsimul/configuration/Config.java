@@ -18,7 +18,7 @@ package com.tsimul.configuration;
  */
 public class Config {
 
-    private String configJson;
+    private final String configJson;
 
     public Config(String configJson) {
         this.configJson = configJson;

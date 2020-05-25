@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
-import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -47,7 +46,6 @@ public abstract class AbstractSensor<T extends Measure, M extends DeviceMetadata
     @Override
     public void on() {
         this.isOn = true;
-        DeviceMetadata metadata = new DeviceMetadata();
         Event<DeviceMetadata> e = new Event<>(null);
         e.setType(Event.EventType.ON);
         this.emitEvent(e);
@@ -76,8 +74,8 @@ public abstract class AbstractSensor<T extends Measure, M extends DeviceMetadata
                     Thread.currentThread().interrupt();
                 }
                 Double value = generator.getValue();
-                this.emitEvent(new Event(null).setType(Event.EventType.UPDATE));
                 measure.resolve(value);
+                this.emitEvent(new Event(null).setType(Event.EventType.UPDATE));
             }
         });
     }

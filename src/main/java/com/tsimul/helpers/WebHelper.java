@@ -2,15 +2,12 @@ package com.tsimul.helpers;
 
 import com.google.inject.Inject;
 import io.javalin.Javalin;
-import io.javalin.core.security.AccessManager;
 import io.javalin.core.security.Role;
 import io.javalin.http.Handler;
 import io.javalin.websocket.WsHandler;
-import io.javalin.websocket.WsHandlerType;
 import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Singleton;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 

@@ -137,6 +137,10 @@
       "type": "string",
       "maxLength": 250
     },
+    "description": {
+      "type": "string",
+      "maxLength": 250
+    },
     "senMLVersion": {
       "type:": "nonNegativeInteger",
       "maximum": 10

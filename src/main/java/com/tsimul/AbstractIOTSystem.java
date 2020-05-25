@@ -1,7 +1,5 @@
 package com.tsimul;
 
-import com.google.gson.Gson;
-import com.google.inject.Inject;
 import com.tsimul.device.Device;
 import com.tsimul.device.sensor.Sensor;
 import com.tsimul.event.*;
@@ -9,14 +7,14 @@ import com.tsimul.exception.DeviceException;
 import com.tsimul.exception.SensorException;
 import com.tsimul.measure.Measure;
 import com.tsimul.plugin.Plugin;
-import com.tsimul.util.Metadata;
+import com.tsimul.base.Metadata;
 import io.javalin.Javalin;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.UUID;
 
 public abstract class AbstractIOTSystem implements IOTSystem {
 
@@ -36,15 +34,7 @@ public abstract class AbstractIOTSystem implements IOTSystem {
 
     public AbstractIOTSystem(Javalin app) {
         super();
-        this.metadata = new Metadata();
-        this.app = app;
-        this.observer = new ObserverImpl(this);
-        this.observable = new ObservableImpl();
-    }
-
-    public AbstractIOTSystem(Metadata metadata, Javalin app) {
-        super();
-        this.metadata = metadata;
+        this.metadata = new Metadata("DefaultName", "DefaultVersion", "DefaultDescription");
         this.app = app;
         this.observer = new ObserverImpl(this);
         this.observable = new ObservableImpl();
@@ -77,6 +67,7 @@ public abstract class AbstractIOTSystem implements IOTSystem {
     }
 
     public void display() {
+        System.out.println(metadata.toJson());
         sensors.forEach(sensor -> {
             try {
                 sensor.display();
@@ -213,7 +204,9 @@ public abstract class AbstractIOTSystem implements IOTSystem {
     }
 
     public String toJson() {
-        ArrayList<String> sensorsDetails = new ArrayList<>();
+        System.out.println(this.metadata.toJson());
+        return this.metadata.toJson();
+        /*ArrayList<String> sensorsDetails = new ArrayList<>();
         ArrayList<String> devicesDetails = new ArrayList<>();
         ArrayList<String> pluginsDetails = new ArrayList<>();
         Map<String, Object> systemDetails = new HashMap<>();
@@ -236,7 +229,7 @@ public abstract class AbstractIOTSystem implements IOTSystem {
         Gson gson = new Gson();
         String metadata = gson.toJson(this.metadata);
 
-        throw new UnsupportedOperationException("The system does not support this method yet");
+        throw new UnsupportedOperationException("The system does not support this method yet");*/
     }
 
 
@@ -252,28 +245,33 @@ public abstract class AbstractIOTSystem implements IOTSystem {
         return plugins;
     }
 
-    public long getId() {
+    public UUID getId() {
         return this.metadata.getId();
-    }
-
-    public void setId(long id) {
-        this.metadata.setId(id);
     }
 
     public String getName() {
         return this.metadata.getName();
     }
 
-    public void setName(String name) {
-        this.metadata.setName(name);
-    }
-
     public String getDescription() {
         return this.metadata.getDescription();
+    }
+
+    public void setName(String name) {
+        this.metadata.setName(name);
     }
 
     public void setDescription(String description) {
         this.metadata.setDescription(description);
     }
 
+    @Override
+    public String getVersion() {
+        return this.metadata.getVersion();
+    }
+
+    @Override
+    public Instant getCreatedAt() {
+        return null;
+    }
 }

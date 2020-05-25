@@ -1,6 +1,6 @@
 package com.tsimul;
 
-import com.tsimul.device.Device;
+import com.tsimul.base.Thing;
 import com.tsimul.device.sensor.Sensor;
 import com.tsimul.event.Observable;
 import com.tsimul.event.Observer;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * An IOT System is a system composed of multiple sensor
  */
-public interface IOTSystem extends Observable, Observer {
+public interface IOTSystem extends Observable, Observer, Thing {
 
     /**
      * Turn on the system
@@ -30,6 +30,10 @@ public interface IOTSystem extends Observable, Observer {
      * Display useful information of the system
      */
     void display();
+
+    void setName(String name);
+
+    void setDescription(String description);
 
     /**
      * TODO: Create an interface Pluggable to unify any component that can be plugged to the system

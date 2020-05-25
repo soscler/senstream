@@ -1,5 +1,6 @@
 {
-  "name": "Weather IOT System",
+  "name": "WIotS",
+  "description":  "Weather IOT System",
   "senMLVersion": 10,
   "sensors": [
     {

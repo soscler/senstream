@@ -1,18 +1,16 @@
 package com.tsimul.util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.ValidationException;
-import org.everit.json.schema.loader.OrgJsonUtil;
 import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.concurrent.ExecutionException;
 
 public class Util {
@@ -25,6 +23,13 @@ public class Util {
             .build();
 
     private Util() {}
+
+    public static ObjectMapper jsonMapper() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.findAndRegisterModules();
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        return mapper.copy();
+    }
 
     /**
      * Validate the json data against the schema
@@ -43,10 +48,9 @@ public class Util {
                                 .draftV7Support()
                                 .build().load().build();
                     });
-            System.out.println(jsonSchema.getDescription());
             jsonSchema.validate(new JSONObject(data));
         } catch (ValidationException | ExecutionException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -69,22 +73,12 @@ public class Util {
                                 .draftV7Support()
                                 .build().load().build();
                     });
-            System.out.println(jsonSchema.getDescription());
             jsonSchema.validate(data);
         } catch (ValidationException | ExecutionException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return false;
         }
         return true;
-    }
-
-    public static void main(String[] args) throws IOException, ExecutionException {
-        String dataPath = "src/main/java/com/tsimul/configuration/example.json";
-        String data = new String(Files.readAllBytes(Paths.get(dataPath)));
-        System.out.println(isValidConfiguration(data));
-        System.out.println(OrgJsonUtil.toMap(new JSONObject(data)));
-
-
     }
 
 }

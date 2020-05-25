@@ -192,7 +192,7 @@ public class SenML {
 
     @Override
     public String toString() {
-        return "SenML{" +
+        return "SenML: {" +
                 "bn='" + bn + '\'' +
                 ", bt=" + bt +
                 ", bu='" + bu + '\'' +

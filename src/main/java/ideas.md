@@ -14,6 +14,22 @@ Le système est composé essentiellement de deux groupes d'éléments :
 **SenML est une spécification qui se veut de faciliter la représentation et le transport des données 
 des capteurs sur internet.**
 
+## Que se passe t'il si l'application redémarre ?
+Il faudra réfléchir à sauvegarder des informations qui permettent de recréer le système dans le cas que celui-ci se redémarre.\
+Par exemple sauvegarder pour chaque entité l'ensemble des informations nécessaire.
+Il doit avoir donc une base de données spéciale pour le système.\
+Ces informations doivent être au minimum.
+- Pour un plugin :
+    - La liste des devices pour lesquels le plugin est abonné
+    - (non natif) Le dossier où se trouvent les fichiers nécessaires du plugin
+- Pour un device :
+    - L'ensemble des informations nécessaires permettant de reconstruire le device
+    - Metadata
+    - Utiliser donc la méthode `toJson()`.
+    
+La méthode `toJson()` appelé sur un device, retourne les information `stateless (et immutable ?)` du device. Pour avoir les informations 
+d'une mesure courante en json il faudra donc appelé `device.getCurrentMeasure().toJson()`.
+
 ## Structure rapide
 
 Tout object doit être identifiable. Ces identifiants doivent être facilement lisible par l'humain.
@@ -51,6 +67,8 @@ Get /api : retourne les informations importantes sur le système :
 
 ## Comment gérer les plugins ?
 
+Javalin a adopté un modèle dans lequel chaque plugin a accès à app: Javalin.
+
 L'idéal serait d'éviter que les plugins aient un accès direct aux ressources du système.
 Imaginer un plugin qui a les droits pour supprimer les capteurs ou même stopper le système !
 
@@ -62,6 +80,11 @@ Pour cela :
     
     Écrire des wrappers pour envelopper ces ressources publiables et grâces à des interfaces,
     limiter l'acces de ces ressources.
+- Les plugin vont donc s'abooner à des évènements du système.
+- Il faudra donc lister tous les évènements.
+
+**Il faut trouver un trade-off entre performances et sécurité**
+Si on fournit le système au plugin, les risques sur la stabilité du système augmente
 
 ## Prérequis
 - Java 8+
