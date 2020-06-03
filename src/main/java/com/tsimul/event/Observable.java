@@ -4,6 +4,10 @@ import com.tsimul.base.Metadata;
 
 import java.util.List;
 
+/**
+ * TODO: Expose the events that this Observable emits
+ * TODO: Create SingleObserver that don't care about filtering the events
+ */
 public interface Observable {
 
     void registerObserver(Observer observer);

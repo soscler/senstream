@@ -5,7 +5,8 @@
   "sensors": [
     {
       "metadata": {
-        "name": "Temperature sensor room 1"
+        "name": "temperature-sensor-room-1",
+        "description": "This is a description of the sensor temperature-sensor-room-1"
       },
       "generation": {
         "type": "NUMERICAL",
@@ -17,7 +18,8 @@
 
     {
       "metadata": {
-        "name": "Temperature sensor room 2"
+        "name": "temperature-sensor-room-2",
+        "description": "This is a description of the sensor temperature-sensor-room-2"
       },
       "generation": {
         "type": "NUMERICAL",
@@ -26,6 +28,23 @@
         "max": 10
       },
       "transport": "WS"
+    }
+  ],
+
+  "plugins": [
+    {
+      "type": "TRANSPORT",
+      "subscribe": {
+        "allEvents": {
+          "eventTypes": ["ON", "OFF", "UPDATE"]
+        },
+        "sensorsEvents": {
+          "eventTypes": ["ON", "OFF", "UPDATE"]
+        },
+        "actuatorsEvents": {
+          "eventTypes": ["ON", "OFF", "UPDATE"]
+        }
+      }
     }
   ]
 }

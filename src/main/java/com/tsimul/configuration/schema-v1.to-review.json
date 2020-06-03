@@ -134,7 +134,7 @@
         "allEvents": {
           "type": "object",
           "properties": {
-            "eventTypes": {
+            "eventType": {
               "type": "array",
               "items": {
                 "allOf": [
@@ -159,7 +159,7 @@
                 ]
               }
             },
-            "eventTypes": {
+            "eventType": {
               "type": "array",
               "items": {
                 "allOf": [
@@ -185,7 +185,7 @@
                 ]
               }
             },
-            "eventTypes": {
+            "eventType": {
               "type": "array",
               "items": {
                 "allOf": [

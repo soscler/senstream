@@ -30,6 +30,6 @@ public class Event<T extends Metadata> {
     }
 
     public enum  EventType {
-        ON, OFF, UPDATE, REGISTER, UNREGISTER
+        ON, OFF, UPDATE, REGISTER, UNREGISTER, DATA
     }
 }

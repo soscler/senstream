@@ -10,7 +10,7 @@ import com.tsimul.device.actuator.Actuator;
 import com.tsimul.device.sensor.AbstractSensor;
 import com.tsimul.device.sensor.Sensor;
 import com.tsimul.event.Observable;
-import com.tsimul.helpers.ResourceModule;
+import com.tsimul.helpers.InjectorModule;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -33,7 +33,7 @@ public class Application {
         String dataPath = "src/main/java/com/tsimul/configuration/example.json";
         String data = new String(Files.readAllBytes(Paths.get(dataPath)));
         Config config = new Config(data);
-        Injector injector = Guice.createInjector(new ResourceModule());
+        Injector injector = Guice.createInjector(new InjectorModule());
         IOTSystem system = injector.getInstance(IOTSystemBuilder.class).config(config).build();
         system.start();
 

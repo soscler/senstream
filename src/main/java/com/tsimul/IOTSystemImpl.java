@@ -1,6 +1,7 @@
 package com.tsimul;
 
 import com.google.inject.Inject;
+import com.tsimul.helpers.ResourceModule;
 import io.javalin.Javalin;
 
 public class IOTSystemImpl extends AbstractIOTSystem {
@@ -10,7 +11,7 @@ public class IOTSystemImpl extends AbstractIOTSystem {
      * @param app represents the web server resources
      */
     @Inject
-    public IOTSystemImpl(Javalin app) {
-        super(app);
+    public IOTSystemImpl(ResourceModule resourceModule) {
+        super(resourceModule);
     }
 }

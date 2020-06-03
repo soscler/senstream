@@ -15,6 +15,11 @@ package com.tsimul.configuration;
  * - frequency: the frequency of generation in seconds
  * - unity: the unity of measurement
  * - channel: enumOf [http, ws, sse] the technology to use to send the data on the network
+ *
+ *
+ * -------------------
+ * This class is used for only internal configuration
+ * i.e. Any configuration that cannot be set via the json file
  */
 public class Config {
 

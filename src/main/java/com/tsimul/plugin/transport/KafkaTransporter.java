@@ -12,7 +12,7 @@ public class KafkaTransporter<T extends Measure> extends AbstractTransporter<T, 
 
     KafkaTransporter() {
         super(null);
-        super.metadata.setType("kafka");
+        //super.metadata.setType("kafka");
     }
 
     @Override

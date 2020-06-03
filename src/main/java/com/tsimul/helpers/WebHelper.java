@@ -17,6 +17,9 @@ import java.util.function.Consumer;
 @Singleton
 public class WebHelper {
 
+    /**
+     * TODO: Create the app here via (Javalin.create())
+     */
     private final Javalin app;
 
     @Inject

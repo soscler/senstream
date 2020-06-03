@@ -4,6 +4,7 @@ import com.tsimul.base.Thing;
 import com.tsimul.device.sensor.Sensor;
 import com.tsimul.event.Observable;
 import com.tsimul.event.Observer;
+import com.tsimul.helpers.ResourceModule;
 import com.tsimul.measure.Measure;
 import com.tsimul.plugin.Plugin;
 
@@ -77,6 +78,8 @@ public interface IOTSystem extends Observable, Observer, Thing {
     default public void update() {}
 
     List<Sensor<Measure>> getSensors();
+
+    ResourceModule getResourceModule();
 
     /**
      * TODO: Complete the interface with useful methods for the system

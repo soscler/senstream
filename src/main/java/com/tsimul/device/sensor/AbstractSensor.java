@@ -75,7 +75,7 @@ public abstract class AbstractSensor<T extends Measure, M extends DeviceMetadata
                 }
                 Double value = generator.getValue();
                 measure.resolve(value);
-                this.emitEvent(new Event(null).setType(Event.EventType.UPDATE));
+                this.emitEvent(new Event(getMetadata()).setType(Event.EventType.UPDATE));
             }
         });
     }
@@ -88,6 +88,7 @@ public abstract class AbstractSensor<T extends Measure, M extends DeviceMetadata
             msg = "Sensor: " + getName() + "No data to show, please make sure the sensor is working\n";
         }
         else msg = "Sensor: " + getName() + "\n" + measure.toJson() + "\n";
+        System.out.println("----------------------------------" + toJson());
         out.write(msg.getBytes(StandardCharsets.UTF_8));
         out.flush();
 

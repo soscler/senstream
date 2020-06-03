@@ -12,7 +12,7 @@ public class WSTransporter <T extends Measure> extends AbstractTransporter<T, Tr
      */
     WSTransporter() {
         super(null);
-        super.metadata.setType("ws");
+        //super.metadata.setType("ws");
     }
 
     @Override

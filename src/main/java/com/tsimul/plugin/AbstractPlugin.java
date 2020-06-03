@@ -6,7 +6,7 @@ import com.tsimul.base.Metadata;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class AbstractPlugin<M extends Metadata> implements Plugin {
+public abstract class AbstractPlugin<M extends PluginMetadata> implements Plugin {
 
     protected M metadata;
 
@@ -89,6 +89,11 @@ public abstract class AbstractPlugin<M extends Metadata> implements Plugin {
 
     public void setDescription(String description) {
         this.metadata.setDescription(description);
+    }
+
+    @Override
+    public M getMetadata() {
+        return metadata;
     }
 
     @Override

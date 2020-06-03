@@ -1,13 +1,18 @@
 package com.tsimul.plugin;
 
 import com.tsimul.base.Metadata;
+import com.tsimul.configuration.ConfigDetail;
+import com.tsimul.event.Event;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Sub type of @see {@link Metadata}
- * @param <T> is used to make it generic the field type of the metadata
  */
-public class PluginMetadata<T> extends Metadata {
+public class PluginMetadata extends Metadata {
+
 
     /**
      * A plugin as a type
@@ -23,32 +28,53 @@ public class PluginMetadata<T> extends Metadata {
      *      metadata: {
      *          type: transport or kafka ? // Generic or specific
      *      }
-     *      listen: {
-     *          event {
-     *              type: [update] // Limité les évènement que le plugin peut écouter
+     *      subscribe: {
+     *          allEvents {
+     *              eventType: [UPDATE, ON, OFF, ALL] // Limité les évènement que le plugin peut écouter
      *          },
-     *          sensor: {
-     *              type: [numerical]
+     *          sensorsEvents: {
+     *              sensorsType: [NUMERICAL, BOOLEAN],
+     *              eventType: [UPDATE, ON OFF, ALL]
      *          },
-     *          actuators: {
-     *              type: [on, off]
+     *          actuatorsEvents: {
+     *              actuatorType: [GAUGE, BINARY],
+     *              eventType: [UPDATE, ON OFF, ALL]
      *          }
      *      }
      *  }
      * - Créer une class PluginHandler
      *
      */
-    private T type;
+
+    private ConfigDetail.PluginType type;
+    private ConfigDetail.PluginSubType subType;
+    private ConfigDetail.PluginDetail.PluginSubscriptionDetail subscriptionDetail;
 
     public PluginMetadata(@NotNull String name, @NotNull String version, @NotNull String description) {
         super(name, version, description);
     }
 
-    public T getType() {
+    private void setType(ConfigDetail.PluginType type) {
+        this.type = type;
+    }
+
+    public ConfigDetail.PluginType getType() {
         return type;
     }
 
-    public void setType(T type) {
-        this.type = type;
+    public ConfigDetail.PluginSubType getSubType() {
+        return subType;
+    }
+
+    private void setSubType(ConfigDetail.PluginSubType subType) {
+        this.subType = subType;
+    }
+
+    public ConfigDetail.PluginDetail.PluginSubscriptionDetail getSubscriptionDetail() {
+        return subscriptionDetail;
+    }
+
+    public void setSubscriptionDetail(ConfigDetail.PluginDetail.PluginSubscriptionDetail subscriptionDetail) {
+        this.subscriptionDetail = subscriptionDetail;
     }
 }

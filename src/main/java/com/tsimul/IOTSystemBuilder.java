@@ -9,6 +9,7 @@ import com.tsimul.configuration.ConfigDetail;
 import com.tsimul.device.sensor.Sensors;
 import com.tsimul.exception.ConfigurationException;
 
+import static com.tsimul.util.Util.cache;
 import static com.tsimul.util.Util.isValidConfiguration;
 
 public class IOTSystemBuilder extends AbstractIOTSystemBuilder {
@@ -64,7 +65,32 @@ public class IOTSystemBuilder extends AbstractIOTSystemBuilder {
                 default:
                     break;
             }
+            configDetail.getPlugins().forEach(p -> {
+                System.out.println("\033[0;31m");
+                p.getSubscribe().getAllEvents().getEventTypes().forEach(System.out::println);
+                System.out.println("\033[0m");
+
+                switch (s.getTransport()) {
+                    case HTTP:
+
+                        // Set up metadata
+                        iotSystem.getResourceModule()
+                                .getHttpTransporter()
+                                .getMetadata()
+                                .setSubscriptionDetail(p.getSubscribe());
+
+                        iotSystem.getResourceModule()
+                                .pluginHelper()
+                                .setupPlugin(
+                                        iotSystem.getResourceModule()
+                                        .getHttpTransporter()
+                                );
+                }
+            });
         });
+        /**
+         * TODO: Should the system delegate the subscription to the PluginHelper/EventHelper or should we keep it like that ?
+         */
         iotSystem.subscribeToObservable(iotSystem.getSensors());
         return iotSystem;
     }

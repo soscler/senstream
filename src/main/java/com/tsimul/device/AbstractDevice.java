@@ -117,4 +117,8 @@ public abstract class AbstractDevice<M extends DeviceMetadata> implements Device
     public String toString() {
         return metadata.toString();
     }
+
+    public M getMetadata() {
+        return metadata;
+    }
 }

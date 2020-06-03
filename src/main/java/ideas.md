@@ -64,6 +64,12 @@ d'utiliser `name` plutôt qu'id.
 Get /api : retourne les informations importantes sur le système :
     - Pour chaque plugin, les détails sur son interface
     - Pour chaque capteur, les informations sur celui-ci
+    
+## Comment synchroniser le schema json et les classes ?
+
+Utiliser Apache Freemarker pour automatiquement générer le schema json.
+- Avoir un fall back au cas où il y'a une erreur avec la génération du schema json
+- S'execute uniquement lorsque la version de l'application change ?
 
 ## Comment gérer les plugins ?
 
