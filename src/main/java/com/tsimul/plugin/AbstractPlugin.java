@@ -1,12 +1,12 @@
 package com.tsimul.plugin;
 
 import com.tsimul.event.*;
-import com.tsimul.base.Metadata;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class AbstractPlugin<M extends PluginMetadata> implements Plugin {
+public abstract class AbstractPlugin<M extends PluginMetadata> implements Plugin<M> {
 
     protected M metadata;
 
@@ -26,7 +26,7 @@ public abstract class AbstractPlugin<M extends PluginMetadata> implements Plugin
     }
 
     @Override
-    public void registerObserver(List<? extends Observer> observers) {
+    public void registerObserver(List<Observer> observers) {
         this.observable.registerObserver(observers);
     }
 
@@ -36,13 +36,8 @@ public abstract class AbstractPlugin<M extends PluginMetadata> implements Plugin
     }
 
     @Override
-    public void unregisterObserver(List<? extends Observer> observers) {
+    public void unregisterObserver(List<Observer> observers) {
         this.observable.unregisterObserver(observers);
-    }
-
-    @Override
-    public void emitEvent() {
-        this.observable.emitEvent();
     }
 
     @Override
@@ -89,6 +84,16 @@ public abstract class AbstractPlugin<M extends PluginMetadata> implements Plugin
 
     public void setDescription(String description) {
         this.metadata.setDescription(description);
+    }
+
+    @Override
+    public Instant getCreatedAt() {
+        return metadata.getCreatedAt();
+    }
+
+    @Override
+    public String toJson() {
+        return metadata.toJson();
     }
 
     @Override

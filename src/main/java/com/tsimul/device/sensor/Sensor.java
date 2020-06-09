@@ -1,8 +1,9 @@
 package com.tsimul.device.sensor;
 
 import com.tsimul.device.Device;
+import com.tsimul.device.DeviceMetadata;
 import com.tsimul.exception.SensorException;
-import com.tsimul.measure.Measure;
+import com.tsimul.measure.SensorMeasure;
 
 import java.io.IOException;
 
@@ -10,7 +11,7 @@ import java.io.IOException;
  * TODO: Create a display interface so that a sensor can display its data to a generic display
  * Display can be STDOUT or whatever display that can handle the data
  */
-public interface Sensor <T extends Measure> extends Device {
+public interface Sensor <M extends DeviceMetadata, T> extends Device<M> {
 
     /**
      * Start the measurement process. This will turn on the sensor
@@ -23,7 +24,7 @@ public interface Sensor <T extends Measure> extends Device {
 
     /**
      * Display the current measurement
-     * @throws InterruptedException
+     * @throws IOException
      * @throws SensorException
      */
     default void display() throws SensorException, IOException {
@@ -34,8 +35,7 @@ public interface Sensor <T extends Measure> extends Device {
      *
      * @return the current/or last value of the sensor
      */
-    default T getCurrentMeasure() {
+    default SensorMeasure<T> getCurrentMeasure() {
         throw new UnsupportedOperationException("This sensor does not support this operation");
     }
-
 }

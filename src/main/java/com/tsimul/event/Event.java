@@ -1,32 +1,46 @@
 package com.tsimul.event;
 
 import com.tsimul.base.Metadata;
+import com.tsimul.event.data.EventData;
 
 /**
  * TODO: Add generic parameter to represent the from metadata
+ * TODO: Use the generic parameter to set the data this event carries
  */
-public class Event<T extends Metadata> {
+public class Event {
 
-    private EventType type;
-    private Metadata metadata;
-    private final T _from;
+    private final EventType type;
+    private final Metadata from;
+    // We can use this field for security purpose, an observer can/should only process events that it listen to
+    // private final Metadata _to;
 
-    public Event(T from) {
-        _from = from;
+    private final EventData data;
+
+    public Event(EventType type, Metadata from, EventData data) {
+        this.type = type;
+        this.from = from;
+        this.data = data;
     }
-
 
     public EventType getType() {
         return type;
     }
 
-    public Event setType(EventType type) {
-        this.type = type;
-        return this;
+    public Metadata getFrom() {
+        return from;
     }
 
-    public T from() {
-        return _from;
+    public EventData getData() {
+        return data;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "type=" + type +
+                ", from=" + from +
+                ", data=" + data +
+                '}';
     }
 
     public enum  EventType {

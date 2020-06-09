@@ -36,7 +36,7 @@
       "type": "TRANSPORT",
       "subscribe": {
         "allEvents": {
-          "eventTypes": ["ON", "OFF", "UPDATE"]
+          "eventTypes": [ "UPDATE"]
         },
         "sensorsEvents": {
           "eventTypes": ["ON", "OFF", "UPDATE"]

@@ -16,15 +16,4 @@ public interface Generator <T> {
      * @return The generated data
      */
     T generate();
-
-    /**
-     *
-     * @param task a custom generation protocol
-     * @return The generated value
-     */
-    default T generate(Engine<T> task) {
-        return task.execute();
-    }
-
-
 }
