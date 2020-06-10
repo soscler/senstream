@@ -41,6 +41,7 @@ public class Application {
         for (int i = 0; i < 100; i++) {
             Thread.sleep(Duration.ofSeconds(5).toMillis());
         }
+
         system.stop();
     }
 }

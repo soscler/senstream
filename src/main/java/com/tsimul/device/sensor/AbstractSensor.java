@@ -6,7 +6,6 @@ import com.tsimul.device.DeviceMetadata;
 import com.tsimul.event.Event;
 import com.tsimul.exception.SensorException;
 import com.tsimul.generator.FrequencyGenerator;
-import com.tsimul.generator.Generators;
 import com.tsimul.measure.Measures;
 import com.tsimul.measure.SensorMeasure;
 
@@ -21,7 +20,7 @@ import java.util.concurrent.Executors;
 public abstract class AbstractSensor<M extends DeviceMetadata, T> extends AbstractDevice<M> implements Sensor<M, T> {
 
     private boolean isOn = false;
-    private long millis;
+    private long frequency;
     private T currentValue;
 
     private final FrequencyGenerator<T> generator;
@@ -32,6 +31,7 @@ public abstract class AbstractSensor<M extends DeviceMetadata, T> extends Abstra
     AbstractSensor(M metadata, FrequencyGenerator<T> generator) {
         super(metadata);
         this.generator = generator;
+        this.frequency = generator.getFrequency();
     }
 
     @Override
@@ -43,12 +43,11 @@ public abstract class AbstractSensor<M extends DeviceMetadata, T> extends Abstra
         executorService.submit(() -> {
             while (isOn) {
                 try {
-                    Thread.sleep(Duration.ofSeconds(this.millis).toMillis());
+                    Thread.sleep(Duration.ofSeconds(this.frequency).toMillis());
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
                 currentValue = generator.getValue();
-
                 Event e = new Event(Event.EventType.UPDATE, getMetadata(), getCurrentMeasure());
                 this.emitEvent(e);
             }
@@ -64,12 +63,11 @@ public abstract class AbstractSensor<M extends DeviceMetadata, T> extends Abstra
     }
 
     @Override
-    public void start() throws InterruptedException, SensorException {
+    public void start() throws SensorException {
+        if(isOn) {
+            throw new SensorException("Sensor is already started");
+        }
         on();
-        /*if(!isOn) {
-            throw new SensorException("Sensor is not started");
-        }*/
-
     }
 
     @Override
@@ -88,7 +86,7 @@ public abstract class AbstractSensor<M extends DeviceMetadata, T> extends Abstra
 
     @Override
     public SensorMeasure<T> getCurrentMeasure() {
-        return null;
+        return Measures.genericSensorMeasure(currentValue, this);
     }
 
     public boolean isOn() {
@@ -99,12 +97,12 @@ public abstract class AbstractSensor<M extends DeviceMetadata, T> extends Abstra
         isOn = on;
     }
 
-    public long getMillis() {
-        return millis;
+    public long getFrequency() {
+        return frequency;
     }
 
-    public void setMillis(long millis) {
-        this.millis = millis;
+    public void setFrequency(long frequency) {
+        this.frequency = frequency;
     }
 
     public OutputStream getOut() {

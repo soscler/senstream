@@ -29,6 +29,7 @@ public class HTTPTransportPlugin extends AbstractTransportPlugin<TransporterMeta
         System.out.println("\033[0;35m");
         System.out.println("Received event at the plugin HTTPTransporter level: " + e.getType());
         System.out.println(e);
+        System.out.println(e.getData());
         System.out.println("\033[0m");
 
         /**

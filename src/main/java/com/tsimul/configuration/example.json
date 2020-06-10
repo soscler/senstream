@@ -23,7 +23,7 @@
       },
       "generation": {
         "type": "NUMERICAL",
-        "frequency": 5,
+        "frequency": 5.0,
         "min": 5,
         "max": 10
       },

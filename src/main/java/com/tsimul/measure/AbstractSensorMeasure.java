@@ -31,7 +31,7 @@ public abstract class AbstractSensorMeasure<T> implements SensorMeasure<T> {
 
     @Override
     public String toString() {
-        return "Date: " + date + "\nValue: " + value + "\nMessage: ";
+        return "Date: " + date + "\nValue: " + value ;
     }
 
     @Override

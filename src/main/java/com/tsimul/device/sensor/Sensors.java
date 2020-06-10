@@ -8,14 +8,14 @@ public class Sensors {
 
     private Sensors() {}
 
-    public static DoubleSensor doubleSensor(DeviceMetadata metadata, double min, double max, long millis) {
-        return new DoubleSensor(metadata, min, max, millis);
+    public static DoubleSensor doubleSensor(DeviceMetadata metadata, double min, double max, long secs) {
+        return new DoubleSensor(metadata, min, max, secs);
     }
 
     public static class DoubleSensor extends AbstractSensor<DeviceMetadata, Double> {
 
-        DoubleSensor(DeviceMetadata metadata, double min, double max, long millis) {
-            super(metadata, Generators.doubleRandomFrequencyGenerator(millis, min, max));
+        DoubleSensor(DeviceMetadata metadata, double min, double max, long secs) {
+            super(metadata, Generators.doubleRandomFrequencyGenerator(min, max, secs));
         }
     }
 }

@@ -10,12 +10,12 @@ public class Generators {
 
     private Generators() {}
 
-    public static DoubleRandomFrequencyGenerator doubleRandomFrequencyGenerator(long millis) {
-        return new DoubleRandomFrequencyGenerator(Generators.doubleRandomGenerator(), millis);
+    public static DoubleRandomFrequencyGenerator doubleRandomFrequencyGenerator(long frequency) {
+        return new DoubleRandomFrequencyGenerator(Generators.doubleRandomGenerator(), frequency);
     }
 
-    public static DoubleRandomFrequencyGenerator doubleRandomFrequencyGenerator(long millis, double min, double max) {
-        return new DoubleRandomFrequencyGenerator(Generators.doubleRandomGenerator(min, max), millis);
+    public static DoubleRandomFrequencyGenerator doubleRandomFrequencyGenerator(double min, double max, long frequency) {
+        return new DoubleRandomFrequencyGenerator(Generators.doubleRandomGenerator(min, max), frequency);
     }
 
     public static DoubleRandomGenerator doubleRandomGenerator() {

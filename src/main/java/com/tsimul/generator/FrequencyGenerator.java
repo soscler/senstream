@@ -12,6 +12,8 @@ public interface FrequencyGenerator<T> {
      */
     public void stop();
 
+    long getFrequency();
+
     T getValue();
 }
 
