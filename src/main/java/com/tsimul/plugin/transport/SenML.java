@@ -1,6 +1,6 @@
 package com.tsimul.plugin.transport;
 
-import com.tsimul.measure.Measure;
+import com.tsimul.measure.SensorMeasure;
 
 /**
  *      see https://tools.ietf.org/pdf/rfc8428.pdf
@@ -186,7 +186,7 @@ public class SenML {
      * Helpers
      */
 
-    public static SenML toSenML(Measure data) {
+    public static SenML toSenML(SensorMeasure data) {
         throw new UnsupportedOperationException();
     }
 

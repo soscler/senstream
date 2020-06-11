@@ -1,0 +1,74 @@
+
+public class Question {
+}
+
+/**
+ * I have a
+ */
+
+public interface Metadata {
+
+}
+
+public class SensorMetadata extends Metadata {
+
+}
+
+interface Data <T> {
+    T value();
+}
+
+class SensorData extends Data<Double> {
+
+}
+
+interface Event<T extends Data<?>> {
+    Metadata metadata;
+    Metadata from;
+    Metadata to;
+    T data;
+}
+
+/**
+ * I can have specific information about the event metadata
+ * @param <T>
+ * @param <U>
+ */
+interface Event<T, U extends Data<?>> {
+    T metadata;
+    Metadata from;
+    Metadata to;
+    U data;
+}
+
+class SensorEvent implements Event<SensorData> {
+}
+
+class SensorEvent implements Event<SensorMetadata, SensorData> {
+}
+
+/**
+ * I can't have this, because I'll lose many information about the data
+ * And that's because, I don't want to do any casting for the data field nor the metadata
+ */
+public interface Event {
+    Metadata metadata;
+    Metadata from;
+    Metadata to;
+    Data<?> data;
+}
+
+/**
+ * Any implementation choice I choose will impact a lot the system
+ * I have other class like Listener / Observer and Observable that depend on the Event class
+ * @param <T>
+ */
+
+
+public class Observer <T extends Event <? extends EventData>> {
+    void processEvent(T event) {...}
+}
+
+public interface Device<T extends DeviceMetadata> extends Observer<Event<? extends EventData>>, Thing<T> {
+
+}

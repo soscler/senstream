@@ -1,11 +1,13 @@
 package com.tsimul.device;
 
 import com.tsimul.base.Thing;
+import com.tsimul.event.Event;
 import com.tsimul.event.Observable;
 import com.tsimul.event.Observer;
+import com.tsimul.event.data.EventData;
 import com.tsimul.exception.DeviceException;
 
-public interface Device extends Observable, Observer, Thing {
+public interface Device<M extends DeviceMetadata> extends Observable, Observer, Thing<M> {
 
     /**
      * Turn on the sensor
@@ -21,14 +23,6 @@ public interface Device extends Observable, Observer, Thing {
      */
     default void off() throws DeviceException {
         throw new UnsupportedOperationException("This device does not support this operation");
-    }
-
-    /**
-     * TODO: Should this function be here ?
-     * @return
-     */
-    default String toJson() {
-        throw new UnsupportedOperationException("This device does not support this method yet");
     }
 
 }

@@ -1,15 +1,15 @@
 package com.tsimul;
 
 import com.tsimul.device.Device;
+import com.tsimul.device.DeviceMetadata;
 import com.tsimul.device.sensor.Sensor;
 import com.tsimul.event.*;
 import com.tsimul.exception.DeviceException;
 import com.tsimul.exception.SensorException;
 import com.tsimul.helpers.ResourceModule;
-import com.tsimul.measure.Measure;
+import com.tsimul.measure.SensorMeasure;
 import com.tsimul.plugin.Plugin;
 import com.tsimul.base.Metadata;
-import io.javalin.Javalin;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -33,8 +33,7 @@ public abstract class AbstractIOTSystem implements IOTSystem {
 
     // TODO: Make sure to use the right collection
     // Since there is a unique identifier for each sensor, use a hash map or a Set instead ?
-    private final List<Sensor<Measure>> sensors = new ArrayList<>();
-    private final List<Device> devices = new ArrayList<>();
+    private final List<Device<DeviceMetadata>> devices = new ArrayList<>();
     private final List<Plugin> plugins = new ArrayList<>();
 
     AbstractIOTSystem(ResourceModule resourceModule) {
@@ -59,21 +58,18 @@ public abstract class AbstractIOTSystem implements IOTSystem {
                 wsMessageContext.send(this.metadata);
             });
         });
-        sensors.forEach(sensor -> {
+        devices.forEach(sensor -> {
             try {
-                sensor.start();
-            }  catch (SensorException e) {
+                sensor.on();
+            }  catch (DeviceException e) {
                 e.printStackTrace();
-            }
-            catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
             }
         });
     }
 
     @Override
     public void stop() {
-        sensors.forEach(s -> {
+        devices.forEach(s -> {
             try {
                 s.off();
             } catch (DeviceException e) {
@@ -84,44 +80,39 @@ public abstract class AbstractIOTSystem implements IOTSystem {
 
     public void display() {
         System.out.println(metadata.toJson());
-        sensors.forEach(sensor -> {
-            try {
-                sensor.display();
+        devices.forEach(sensor -> {
+            /*try {
+                //sensor.display();
             } catch (SensorException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
                 Thread.currentThread().interrupt();
-            }
+            }*/
         });
     }
 
 
-    public void register(Sensor<Measure> sensor) {
-        sensors.add(sensor);
+    public void register(Device<DeviceMetadata> device) {
+        devices.add(device);
     }
 
     /**
      * TODO Make sure the remove works, so make sure the equals fonction of Sensor works fine
-     * @param sensor
+     * @param device
      */
-    public void deregister(Sensor<Measure> sensor) {
-        sensors.remove(sensor);
-        unsubscribeFromObservable(sensor);
+    public void deregister(Device<DeviceMetadata> device) {
+        devices.remove(device);
+        unsubscribeFromObservable(device);
     }
 
     @Override
-    public void processEvent() {
-        System.out.println("\033[0;31m");
-        System.out.println("Received event");
+    public void processEvent(Event e) {
+
+        System.out.println("\033[0;36m");
+        System.out.println("Received event at the system level: " + e.getType());
+        System.out.println("Received event at the system level: " + e);
         System.out.println("\033[0m");
-    }
-
-    @Override
-    public void processEvent(Event<? extends Metadata> e) {
-        /*System.out.println("\033[0;36m");
-        System.out.println("Received event: " + e.getType());
-        System.out.println("\033[0m");*/
 
         this.resourceModule.pluginHelper().forwardEvent(e);
     }
@@ -132,7 +123,7 @@ public abstract class AbstractIOTSystem implements IOTSystem {
     }
 
     @Override
-    public void registerObserver(List<? extends Observer> observers) {
+    public void registerObserver(List<Observer> observers) {
         this.observable.registerObserver(observers);
     }
 
@@ -142,17 +133,12 @@ public abstract class AbstractIOTSystem implements IOTSystem {
     }
 
     @Override
-    public void unregisterObserver(List<? extends Observer> observers) {
+    public void unregisterObserver(List<Observer> observers) {
         this.observable.unregisterObserver(observers);
     }
 
     @Override
-    public void emitEvent() {
-        this.observable.emitEvent();
-    }
-
-    @Override
-    public void emitEvent(Event<? extends Metadata> event) {
+    public void emitEvent(Event event) {
         this.observable.emitEvent(event);
     }
 
@@ -181,8 +167,7 @@ public abstract class AbstractIOTSystem implements IOTSystem {
     public void plugin(Plugin p) {
         plugins.add(p);
         registerObserver(p);
-        Event<Metadata> e = new Event<>(this.metadata);
-        e.setType(Event.EventType.REGISTER);
+        Event e = new Event(Event.EventType.REGISTER, this.metadata, null);
         this.emitEvent(e);
     }
 
@@ -193,8 +178,8 @@ public abstract class AbstractIOTSystem implements IOTSystem {
         unregisterObserver(p);
     }
 
-    private void configureSensor(Sensor<Measure> sensor) {
-        resourceModule.webHelper().get("/sensor/:name", ctx -> {
+    private void configureDevice(Sensor sensor) {
+        resourceModule.webHelper().get("/device/:name", ctx -> {
             ctx.json(sensor.toJson());
         });
     }
@@ -251,11 +236,12 @@ public abstract class AbstractIOTSystem implements IOTSystem {
         return resourceModule;
     }
 
-    public List<Sensor<Measure>> getSensors() {
+    /*public List<Sensor<? extends SensorMeasure>> getSensors() {
         return sensors;
-    }
+    }*/
 
-    private List<Device> getDevices() {
+    public List<Device<DeviceMetadata>> getDevices() {
+        // TODO: Return a copy ?
         return devices;
     }
 
@@ -283,7 +269,6 @@ public abstract class AbstractIOTSystem implements IOTSystem {
         this.metadata.setDescription(description);
     }
 
-    @Override
     public String getVersion() {
         return this.metadata.getVersion();
     }

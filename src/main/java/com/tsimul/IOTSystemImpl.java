@@ -1,6 +1,7 @@
 package com.tsimul;
 
 import com.google.inject.Inject;
+import com.tsimul.base.Metadata;
 import com.tsimul.helpers.ResourceModule;
 import io.javalin.Javalin;
 
@@ -13,5 +14,15 @@ public class IOTSystemImpl extends AbstractIOTSystem {
     @Inject
     public IOTSystemImpl(ResourceModule resourceModule) {
         super(resourceModule);
+    }
+
+    @Override
+    public Metadata getMetadata() {
+        return null;
+    }
+
+    @Override
+    public void update() {
+
     }
 }

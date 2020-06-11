@@ -2,19 +2,17 @@ package com.tsimul.helpers;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.tsimul.measure.Measure;
-import com.tsimul.plugin.transport.HTTPTransporter;
-import com.tsimul.plugin.transport.TransporterMetadata;
+import com.tsimul.plugin.transport.HTTPTransportPlugin;
 
 @Singleton
 public class ResourceModule {
 
     private final WebHelper webHelper;
     private final PluginHelper pluginHelper;
-    private final HTTPTransporter<Measure> httpTransporter;
+    private final HTTPTransportPlugin httpTransporter;
 
     @Inject
-    public ResourceModule(WebHelper webHelper, PluginHelper pluginHelper, HTTPTransporter<Measure> httpTransporter) {
+    public ResourceModule(WebHelper webHelper, PluginHelper pluginHelper, HTTPTransportPlugin httpTransporter) {
         this.webHelper = webHelper;
         this.pluginHelper = pluginHelper;
         this.httpTransporter = httpTransporter;
@@ -28,7 +26,7 @@ public class ResourceModule {
         return this.pluginHelper;
     }
 
-    public HTTPTransporter<Measure> getHttpTransporter() {
+    public HTTPTransportPlugin getHttpTransporter() {
         return httpTransporter;
     }
 }

@@ -4,10 +4,10 @@ import com.tsimul.device.AbstractDevice;
 import com.tsimul.device.DeviceMetadata;
 import com.tsimul.exception.DeviceException;
 
-public abstract class AbstractActuator extends AbstractDevice<DeviceMetadata> implements Actuator {
+public abstract class AbstractActuator<M extends DeviceMetadata> extends AbstractDevice<M> {
 
 
-    public AbstractActuator(DeviceMetadata metadata) {
+    public AbstractActuator(M metadata) {
         super(metadata);
     }
 

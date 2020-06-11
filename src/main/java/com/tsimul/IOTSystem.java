@@ -1,12 +1,15 @@
 package com.tsimul;
 
 import com.tsimul.base.Thing;
+import com.tsimul.device.Device;
+import com.tsimul.device.DeviceMetadata;
 import com.tsimul.device.sensor.Sensor;
 import com.tsimul.event.Observable;
 import com.tsimul.event.Observer;
 import com.tsimul.helpers.ResourceModule;
-import com.tsimul.measure.Measure;
+import com.tsimul.measure.SensorMeasure;
 import com.tsimul.plugin.Plugin;
+import com.tsimul.plugin.PluginMetadata;
 
 import java.util.List;
 
@@ -43,30 +46,32 @@ public interface IOTSystem extends Observable, Observer, Thing {
 
     /**
      * Add a new sensor to the system
-     * @param sensor the sensor to be added to the system
+     * @param device the sensor to be added to the system
+     *               TODO: remove raw type
      */
-    void register(Sensor<Measure> sensor);
+    void register(Device<DeviceMetadata> device);
 
     /**
      * Remove a sensor from the system
-     * @param sensor the sensor to be removed from the system
+     * @param device the sensor to be removed from the system
      */
-    void deregister(Sensor<Measure> sensor);
+    void deregister(Device<DeviceMetadata> device);
 
     /**
      * Register a new plugin to the system
      */
-    default void plugin(Plugin p) {
+    default void plugin(Plugin<PluginMetadata> p) {
         throw new UnsupportedOperationException("The system does not support plugins");
     }
 
     /**
      * De-register a plugin from the system
      */
-    default void unplug(Plugin p) {
+    default void unplug(Plugin<PluginMetadata> p) {
         throw new UnsupportedOperationException("The system does not support plugins");
     }
 
+    @Override
     default String toJson() {
         throw new UnsupportedOperationException("This plugin does not support this method yet");
     }
@@ -77,9 +82,10 @@ public interface IOTSystem extends Observable, Observer, Thing {
      */
     default public void update() {}
 
-    List<Sensor<Measure>> getSensors();
 
     ResourceModule getResourceModule();
+
+    List<? extends Observable> getDevices();
 
     /**
      * TODO: Complete the interface with useful methods for the system

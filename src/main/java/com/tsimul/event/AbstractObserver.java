@@ -1,7 +1,5 @@
 package com.tsimul.event;
 
-import com.tsimul.base.Metadata;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +20,7 @@ public abstract class AbstractObserver implements Observer {
     }
 
     @Override
-    public synchronized void processEvent() {
-        this.processor.processEvent();
-    }
-
-    @Override
-    public synchronized void processEvent(Event<? extends Metadata> e) {
+    public synchronized void processEvent(Event e) {
         this.processor.processEvent(e);
     }
 

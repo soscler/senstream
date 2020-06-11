@@ -11,15 +11,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Slf4j
 public abstract class AbstractFrequencyGenerator<T> implements FrequencyGenerator<T> {
 
-    private long millis;
+    private long frequency;
     private T value = null;
     private Generator<T> generator;
 
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-    public AbstractFrequencyGenerator(Generator<T> generator, long millis) {
+    public AbstractFrequencyGenerator(Generator<T> generator, long frequency) {
         Objects.requireNonNull(generator);
-        this.millis = millis;
+        this.frequency = frequency;
         this.generator = generator;
     }
 
@@ -38,7 +38,7 @@ public abstract class AbstractFrequencyGenerator<T> implements FrequencyGenerato
         executorService.submit(() -> {
             try {
                 while (!error.get()) {
-                    Thread.sleep(Duration.ofSeconds(this.millis).toMillis());
+                    Thread.sleep(Duration.ofSeconds(this.frequency).toMillis());
                     this.value = generator.generate();
                 }
             } catch (InterruptedException e) {
@@ -54,5 +54,15 @@ public abstract class AbstractFrequencyGenerator<T> implements FrequencyGenerato
     public void stop() {
         this.value = null;
         executorService.shutdownNow();
+    }
+
+    @Override
+    public long getFrequency() {
+        return frequency;
+    }
+
+    @Override
+    public void setFrequency(long frequency) {
+        this.frequency = frequency;
     }
 }

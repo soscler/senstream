@@ -1,6 +1,6 @@
 package com.tsimul.plugin.transport;
 
-import com.tsimul.measure.Measure;
+import com.tsimul.measure.SensorMeasure;
 
 /**
  * Kafka transport helper
@@ -8,15 +8,15 @@ import com.tsimul.measure.Measure;
  * For future a release, we will see this class as a sub class of MessagingTransporter
  * @param <T>
  */
-public class KafkaTransporter<T extends Measure> extends AbstractTransporter<T, TransporterMetadata> {
+public class KafkaTransportPlugin<T extends SensorMeasure> extends AbstractTransportPlugin<TransporterMetadata> {
 
-    KafkaTransporter() {
+    KafkaTransportPlugin() {
         super(null);
         //super.metadata.setType("kafka");
     }
-
+/*
     @Override
     public void send(T data) {
         throw new UnsupportedOperationException();
-    }
+    }*/
 }

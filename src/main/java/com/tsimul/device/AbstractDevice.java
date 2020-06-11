@@ -1,7 +1,8 @@
 package com.tsimul.device;
 
 import com.tsimul.event.*;
-import com.tsimul.base.Metadata;
+import com.tsimul.event.data.EventData;
+import com.tsimul.event.data.SensorEventData;
 
 import java.time.Instant;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.UUID;
 /**
  * Class used to define all primordial fields and common methods
  */
-public abstract class AbstractDevice<M extends DeviceMetadata> implements Device {
+public abstract class AbstractDevice<M extends DeviceMetadata> implements Device<M> {
 
     private final ObserverImpl observer;
     private final ObservableImpl observable;
@@ -30,7 +31,7 @@ public abstract class AbstractDevice<M extends DeviceMetadata> implements Device
     }
 
     @Override
-    public void registerObserver(List<? extends Observer> observers) {
+    public void registerObserver(List<Observer> observers) {
         this.observable.registerObserver(observers);
     }
 
@@ -40,17 +41,12 @@ public abstract class AbstractDevice<M extends DeviceMetadata> implements Device
     }
 
     @Override
-    public void unregisterObserver(List<? extends Observer> observers) {
+    public void unregisterObserver(List<Observer> observers) {
         this.observable.unregisterObserver(observers);
     }
 
     @Override
-    public void emitEvent() {
-        this.observable.emitEvent();
-    }
-
-    @Override
-    public void emitEvent(Event<? extends Metadata> event) {
+    public void emitEvent(Event event) {
         this.observable.emitEvent(event);
     }
 
@@ -80,7 +76,6 @@ public abstract class AbstractDevice<M extends DeviceMetadata> implements Device
         return this.metadata.getId();
     }
 
-    @Override
     public String getName() {
         return this.metadata.getName();
     }
@@ -89,7 +84,6 @@ public abstract class AbstractDevice<M extends DeviceMetadata> implements Device
         this.metadata.setName(name);
     }
 
-    @Override
     public String getDescription() {
         return this.metadata.getDescription();
     }
@@ -103,7 +97,6 @@ public abstract class AbstractDevice<M extends DeviceMetadata> implements Device
         return this.metadata.getCreatedAt();
     }
 
-    @Override
     public String getVersion() {
         return this.metadata.getVersion();
     }

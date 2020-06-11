@@ -1,6 +1,6 @@
 package com.tsimul.measure;
 
-public interface Measure {
+public interface Measure<T> {
     String toJson();
-    void resolve(Double value);
+    T getValue();
 }

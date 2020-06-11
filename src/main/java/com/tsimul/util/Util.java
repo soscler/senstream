@@ -18,10 +18,10 @@ public class Util {
     public static final long MAXIMUM_CACHE_SIZE = 1000L;
     public static final String CONFIG_JSON_SCHEMA_FILE_PATH = "src/main/java/com/tsimul/configuration/schema-v1.json";
     public static final String CONFIG_JSON_SCHEMA_KEY = "configJsonSchema";
+    public static final String CONFIG_JSON_DATA_KEY = "configJsonData";
     public static final Cache<String, Object> cache = CacheBuilder.newBuilder()
             .maximumSize(MAXIMUM_CACHE_SIZE)
             .build();
-
     private Util() {}
 
     public static ObjectMapper jsonMapper() {

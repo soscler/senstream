@@ -1,22 +1,14 @@
 package com.tsimul.helpers;
 
-import com.google.common.collect.Collections2;
 import com.google.common.collect.LinkedListMultimap;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.inject.Singleton;
-import com.google.inject.internal.cglib.core.$CollectionUtils;
 import com.tsimul.event.*;
 import com.tsimul.event.Observable;
-import com.tsimul.event.Observer;
-import com.tsimul.measure.Measure;
 import com.tsimul.plugin.Plugin;
 import com.tsimul.plugin.PluginMetadata;
-import com.tsimul.plugin.transport.HTTPTransporter;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**

@@ -12,13 +12,10 @@ public interface FrequencyGenerator<T> {
      */
     public void stop();
 
+    long getFrequency();
+
+    void setFrequency(long frequency);
 
     T getValue();
-
-    /**
-     * It is not allowed to modify the value of a generator
-     */
-    default void setValue() {
-        throw new UnsupportedOperationException();
-    }
 }
+

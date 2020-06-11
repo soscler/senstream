@@ -6,12 +6,19 @@ import java.util.UUID;
 /**
  * Ease the access of the metadata fields
  */
-public interface Thing {
+public interface Thing<T extends Metadata> {
 
     UUID getId();
-    String getName();
+
     Instant getCreatedAt();
-    String getVersion();
-    String getDescription();
-    String toJson();
+
+    default String toJson() {
+        throw new UnsupportedOperationException("This thing does not support this method yet");
+    }
+
+    /**
+     * Any method that implement this method, should provide a copy of the plugin metadata object instead of the original object
+     * @return a copy of the plugin metadata
+     */
+    T getMetadata();
 }
