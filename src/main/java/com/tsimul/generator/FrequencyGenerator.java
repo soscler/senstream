@@ -14,6 +14,8 @@ public interface FrequencyGenerator<T> {
 
     long getFrequency();
 
+    void setFrequency(long frequency);
+
     T getValue();
 }
 

@@ -114,7 +114,7 @@ public abstract class AbstractIOTSystem implements IOTSystem {
         System.out.println("Received event at the system level: " + e);
         System.out.println("\033[0m");
 
-        //this.resourceModule.pluginHelper().forwardEvent(e);
+        this.resourceModule.pluginHelper().forwardEvent(e);
     }
 
     @Override

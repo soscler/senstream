@@ -22,7 +22,6 @@ public class Util {
     public static final Cache<String, Object> cache = CacheBuilder.newBuilder()
             .maximumSize(MAXIMUM_CACHE_SIZE)
             .build();
-
     private Util() {}
 
     public static ObjectMapper jsonMapper() {

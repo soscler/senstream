@@ -60,4 +60,9 @@ public abstract class AbstractFrequencyGenerator<T> implements FrequencyGenerato
     public long getFrequency() {
         return frequency;
     }
+
+    @Override
+    public void setFrequency(long frequency) {
+        this.frequency = frequency;
+    }
 }

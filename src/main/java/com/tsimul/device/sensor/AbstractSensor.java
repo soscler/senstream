@@ -20,7 +20,6 @@ import java.util.concurrent.Executors;
 public abstract class AbstractSensor<M extends DeviceMetadata, T> extends AbstractDevice<M> implements Sensor<M, T> {
 
     private boolean isOn = false;
-    private long frequency;
     private T currentValue;
 
     private final FrequencyGenerator<T> generator;
@@ -31,7 +30,6 @@ public abstract class AbstractSensor<M extends DeviceMetadata, T> extends Abstra
     AbstractSensor(M metadata, FrequencyGenerator<T> generator) {
         super(metadata);
         this.generator = generator;
-        this.frequency = generator.getFrequency();
     }
 
     @Override
@@ -43,7 +41,7 @@ public abstract class AbstractSensor<M extends DeviceMetadata, T> extends Abstra
         executorService.submit(() -> {
             while (isOn) {
                 try {
-                    Thread.sleep(Duration.ofSeconds(this.frequency).toMillis());
+                    Thread.sleep(Duration.ofSeconds(generator.getFrequency()).toMillis());
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
@@ -98,11 +96,11 @@ public abstract class AbstractSensor<M extends DeviceMetadata, T> extends Abstra
     }
 
     public long getFrequency() {
-        return frequency;
+        return generator.getFrequency();
     }
 
     public void setFrequency(long frequency) {
-        this.frequency = frequency;
+        generator.setFrequency(frequency);
     }
 
     public OutputStream getOut() {

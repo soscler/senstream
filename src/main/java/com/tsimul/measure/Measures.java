@@ -1,6 +1,7 @@
 package com.tsimul.measure;
 
 import com.tsimul.device.DeviceMetadata;
+import com.tsimul.device.sensor.AbstractSensor;
 import com.tsimul.device.sensor.Sensor;
 
 public class Measures {
@@ -11,6 +12,10 @@ public class Measures {
         return new DoubleSensorMeasureAbstract(value, sensor);
     }
 
+    /**
+     * TODO fix raw use of parameter
+     * @see AbstractSensor#getCurrentMeasure()
+     */
     public static <T> GenericSensorMeasureAbstract genericSensorMeasure(T value, Sensor<? extends DeviceMetadata, T> sensor) {
         return new GenericSensorMeasureAbstract(value, sensor);
     }

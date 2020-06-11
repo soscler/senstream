@@ -2,6 +2,7 @@ package com.tsimul.event;
 
 import com.tsimul.base.Metadata;
 import com.tsimul.event.data.EventData;
+import jdk.jfr.EventType;
 
 import java.util.List;
 
@@ -27,4 +28,8 @@ public interface Observer {
      * TODO: Create this method to specific the events this group of observers want to listen to observer
      * void subscribeToEvent(EventType type, List<? extends Observer> observers)
      */
+
+    default void subscribeToObservableEvent(Observer o, EventType... type) {
+        throw new UnsupportedOperationException("This method is not yet implemented by this Observer");
+    }
 }

@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import com.tsimul.event.Event;
 import com.tsimul.helpers.WebHelper;
 import com.tsimul.measure.SensorMeasure;
+import com.tsimul.util.Util;
 
 /**
  * HTTP Transport helper
@@ -47,6 +48,7 @@ public class HTTPTransportPlugin extends AbstractTransportPlugin<TransporterMeta
        /* webHelper.get("/:id", ctx -> {
 
         });*/
+
 
         /** TODO: enable path to name */
         webHelper.get(e.getFrom().getName() , ctx -> {
