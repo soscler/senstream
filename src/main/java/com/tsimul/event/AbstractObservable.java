@@ -12,6 +12,7 @@ import java.util.Map;
 
 public abstract class AbstractObservable implements Observable {
 
+    // It should be a set - In order to avoid duplication
     List<Observer> observers = new ArrayList<>();
 
     /**

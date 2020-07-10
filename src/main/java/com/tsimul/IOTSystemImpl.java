@@ -1,10 +1,11 @@
 package com.tsimul;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.tsimul.base.Metadata;
-import com.tsimul.helpers.ResourceModule;
-import io.javalin.Javalin;
+import com.tsimul.helpers.PluginHelperModule;
 
+@Singleton
 public class IOTSystemImpl extends AbstractIOTSystem {
 
     /**
@@ -12,8 +13,8 @@ public class IOTSystemImpl extends AbstractIOTSystem {
      * @param app represents the web server resources
      */
     @Inject
-    public IOTSystemImpl(ResourceModule resourceModule) {
-        super(resourceModule);
+    public IOTSystemImpl(PluginHelperModule pluginHelperModule) {
+        super(pluginHelperModule);
     }
 
     @Override

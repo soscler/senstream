@@ -6,7 +6,6 @@ import com.google.inject.Singleton;
 import com.tsimul.event.*;
 import com.tsimul.event.Observable;
 import com.tsimul.plugin.Plugin;
-import com.tsimul.plugin.PluginMetadata;
 
 import java.util.*;
 import java.util.concurrent.Executors;
@@ -21,7 +20,7 @@ public class PluginHelper {
     // private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final Map<String, Observable> observers = null;
 
-    private final Multimap<Event.EventType, Plugin<? extends PluginMetadata>> plugins = LinkedListMultimap.create();
+    private final Multimap<Event.EventType, Plugin> plugins = LinkedListMultimap.create();
 
 
     PluginHelper() {
@@ -58,7 +57,7 @@ public class PluginHelper {
      * TODO: So that the observer class is responsible of setting the proprieties of the events it wants to listen to
      * @param p
      */
-    public void setupPlugin(Plugin<? extends PluginMetadata> p) {
+    public void subscribePluginToEvent(Plugin p) {
         p.getMetadata().getSubscriptionDetail()
                 .getAllEvents()
                 .getEventTypes()

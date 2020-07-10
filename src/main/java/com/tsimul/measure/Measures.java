@@ -25,6 +25,7 @@ public class Measures {
         public DoubleSensorMeasureAbstract(Double value, Sensor<DeviceMetadata, Double> sensor) {
             super(value, sensor);
         }
+
     }
 
     public static class GenericSensorMeasureAbstract<T> extends AbstractSensorMeasure<T> {

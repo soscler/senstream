@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Test {
 
-    public static void main(String[] args) {
+    static void date() {
         Instant now = Instant.now();
         System.out.println("Instant " + Instant.now());
         System.out.println("OffsetDateTime " + OffsetDateTime.now());
@@ -18,16 +18,32 @@ public class Test {
         System.out.println("LocalDateTime " + LocalDateTime.now());
         LocalDateTime date = LocalDateTime.ofInstant(now, ZoneId.of("America/Los_Angeles"));
         System.out.println(date);
+    }
 
+    static void listReference() {
 
         Metadata metadata = new Metadata("testName", "testVersion", "testDescription");
         List<Metadata> test = Lists.newArrayList();
+        List<Metadata> test2 = Lists.newArrayList();
         test.add(metadata);
+        test2.add(metadata);
+        System.out.println(test2);;
+        metadata.setName("alpha");
+
+        System.out.println(test2);;
+
+        /*
         List<Metadata> metadataList = ImmutableList.copyOf(test);
         System.out.println(metadataList);
         metadata.setName("alpha");
-        System.out.println(metadataList);
+        System.out.println(metadataList);*/
 
+    }
 
+    public static void main(String[] args) {
+        /*Registry r = new Registry();
+        r.get("").subscribe(aDouble -> {
+            System.out.println(aDouble);
+        });*/
     }
 }

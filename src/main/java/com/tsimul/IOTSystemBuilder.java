@@ -63,26 +63,36 @@ public class IOTSystemBuilder extends AbstractIOTSystemBuilder {
                 default:
                     break;
             }
+            System.out.println(s.getTransport());
+            // Set up the default plugins // For non third parties plugin see how to load jar ball
             configDetail.getPlugins().forEach(p -> {
                 System.out.println("\033[0;31m");
+                // Set up general level plugins before setting up for fine grained device level
                 p.getSubscribe().getAllEvents().getEventTypes().forEach(System.out::println);
+
                 System.out.println("\033[0m");
 
                 switch (s.getTransport()) {
                     case HTTP:
 
-                        // Set up metadata
-                        iotSystem.getResourceModule()
+                        // Set up plugin metadata
+                        iotSystem.getPluginHelperModule()
                                 .getHttpTransporter()
                                 .getMetadata()
                                 .setSubscriptionDetail(p.getSubscribe());
+                        // Init the plugin before subscribing it to the event
+                        // Set up the plugins (by delegation)
 
-                        iotSystem.getResourceModule()
+
+
+                        // Subscribe the plugins to the events they are interested to
+                        iotSystem.getPluginHelperModule()
                                 .pluginHelper()
-                                .setupPlugin(
-                                        iotSystem.getResourceModule()
+                                .subscribePluginToEvent(
+                                        iotSystem.getPluginHelperModule()
                                         .getHttpTransporter()
                                 );
+                        break;
 
                 }
             });

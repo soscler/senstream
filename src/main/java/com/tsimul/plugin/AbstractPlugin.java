@@ -6,7 +6,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class AbstractPlugin<M extends PluginMetadata> implements Plugin<M> {
+public abstract class AbstractPlugin<M extends PluginMetadata> implements Plugin {
 
     protected M metadata;
 

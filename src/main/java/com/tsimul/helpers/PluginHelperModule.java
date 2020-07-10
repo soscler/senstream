@@ -5,14 +5,18 @@ import com.google.inject.Singleton;
 import com.tsimul.plugin.transport.HTTPTransportPlugin;
 
 @Singleton
-public class ResourceModule {
+public class PluginHelperModule {
 
     private final WebHelper webHelper;
     private final PluginHelper pluginHelper;
     private final HTTPTransportPlugin httpTransporter;
 
+    // TODO: store the plugins in a hashmap so that fetching a plugin by its name become easier
+
+    
+
     @Inject
-    public ResourceModule(WebHelper webHelper, PluginHelper pluginHelper, HTTPTransportPlugin httpTransporter) {
+    public PluginHelperModule(WebHelper webHelper, PluginHelper pluginHelper, HTTPTransportPlugin httpTransporter) {
         this.webHelper = webHelper;
         this.pluginHelper = pluginHelper;
         this.httpTransporter = httpTransporter;

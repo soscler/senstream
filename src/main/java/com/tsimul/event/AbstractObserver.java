@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class AbstractObserver implements Observer {
 
-    // TODO: Replace ArrayList with HashSet
+    // TODO: Replace ArrayList with HashSet in order to avoid duplication
     List<Observable> subjects = new ArrayList<>();
 
     /**

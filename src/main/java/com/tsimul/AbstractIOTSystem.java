@@ -5,17 +5,17 @@ import com.tsimul.device.DeviceMetadata;
 import com.tsimul.device.sensor.Sensor;
 import com.tsimul.event.*;
 import com.tsimul.exception.DeviceException;
-import com.tsimul.exception.SensorException;
-import com.tsimul.helpers.ResourceModule;
-import com.tsimul.measure.SensorMeasure;
+import com.tsimul.helpers.PluginHelperModule;
 import com.tsimul.plugin.Plugin;
 import com.tsimul.base.Metadata;
 
-import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
 /**
  * TODO: Use webHelper for even the system
@@ -29,35 +29,36 @@ public abstract class AbstractIOTSystem implements IOTSystem {
     private final Metadata metadata;
     private final Observer observer;
     private final Observable observable;
-    private final ResourceModule resourceModule;
+    private final PluginHelperModule pluginHelperModule;
 
     // TODO: Make sure to use the right collection
     // Since there is a unique identifier for each sensor, use a hash map or a Set instead ?
     private final List<Device<DeviceMetadata>> devices = new ArrayList<>();
-    private final List<Plugin> plugins = new ArrayList<>();
 
-    AbstractIOTSystem(ResourceModule resourceModule) {
+    //private final List<Plugin> plugins = new ArrayList<>();
+
+    AbstractIOTSystem(PluginHelperModule pluginHelperModule) {
         super();
         this.metadata = new Metadata("DefaultName", "DefaultVersion", "DefaultDescription");
         this.observer = new ObserverImpl(this);
         this.observable = new ObservableImpl();
-        this.resourceModule = resourceModule;
+        this.pluginHelperModule = pluginHelperModule;
     }
 
     @Override
     public void start() {
-        resourceModule.webHelper().get("/", context -> {
+        pluginHelperModule.webHelper().get("/", context -> {
             context.json(this.metadata);
         });
 
-        resourceModule.webHelper().ws("/ws", wsHandler -> {
+        /*resourceModule.webHelper().ws("/ws", wsHandler -> {
             wsHandler.onConnect(wsConnectContext -> {
                 System.out.println("Connected");
             });
             wsHandler.onMessage(wsMessageContext -> {
                 wsMessageContext.send(this.metadata);
             });
-        });
+        });*/
         devices.forEach(sensor -> {
             try {
                 sensor.on();
@@ -92,6 +93,12 @@ public abstract class AbstractIOTSystem implements IOTSystem {
         });
     }
 
+    @Override
+    public Holder<Metadata> get(String id) {
+        return consumer -> Executors.newSingleThreadExecutor().submit(() -> {
+            //devices.get(id);
+        });
+    }
 
     public void register(Device<DeviceMetadata> device) {
         devices.add(device);
@@ -114,7 +121,7 @@ public abstract class AbstractIOTSystem implements IOTSystem {
         System.out.println("Received event at the system level: " + e);
         System.out.println("\033[0m");
 
-        this.resourceModule.pluginHelper().forwardEvent(e);
+        this.pluginHelperModule.pluginHelper().forwardEvent(e);
     }
 
     @Override
@@ -165,21 +172,21 @@ public abstract class AbstractIOTSystem implements IOTSystem {
 
     @Override
     public void plugin(Plugin p) {
-        plugins.add(p);
-        registerObserver(p);
+        //plugins.add(p);
+        /*registerObserver(p);
         Event e = new Event(Event.EventType.REGISTER, this.metadata, null);
-        this.emitEvent(e);
+        this.emitEvent(e);*/
     }
 
     @Override
     public void unplug(Plugin p) {
-        plugins.remove(p);
+        //plugins.remove(p);
 
-        unregisterObserver(p);
+        //unregisterObserver(p);
     }
 
     private void configureDevice(Sensor sensor) {
-        resourceModule.webHelper().get("/device/:name", ctx -> {
+        pluginHelperModule.webHelper().get("/device/:name", ctx -> {
             ctx.json(sensor.toJson());
         });
     }
@@ -187,10 +194,10 @@ public abstract class AbstractIOTSystem implements IOTSystem {
     public void startWebServer() {
         // Publish the system global information
 
-        resourceModule.webHelper().get("/description", ctx -> {
+        pluginHelperModule.webHelper().get("/description", ctx -> {
             ctx.json(metadata);
         });
-        resourceModule.webHelper().get("/info/", ctx -> {
+        pluginHelperModule.webHelper().get("/info/", ctx -> {
             ctx.json(metadata);
         });
 
@@ -232,8 +239,8 @@ public abstract class AbstractIOTSystem implements IOTSystem {
         throw new UnsupportedOperationException("The system does not support this method yet");*/
     }
 
-    public ResourceModule getResourceModule() {
-        return resourceModule;
+    public PluginHelperModule getPluginHelperModule() {
+        return pluginHelperModule;
     }
 
     /*public List<Sensor<? extends SensorMeasure>> getSensors() {
@@ -246,7 +253,7 @@ public abstract class AbstractIOTSystem implements IOTSystem {
     }
 
     private List<Plugin> getPlugins() {
-        return plugins;
+        return null;
     }
 
     public UUID getId() {
