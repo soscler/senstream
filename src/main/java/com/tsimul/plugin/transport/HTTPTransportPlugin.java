@@ -40,6 +40,12 @@ public class HTTPTransportPlugin extends AbstractTransportPlugin<TransporterMeta
              *      Cela implique a système d'avoir une liste de type d'information
              * (2) Utiliser l'api du système: Ajouter une interface au système pour donner juste acces a cet api
              * */
+            iotSystem.get(path).subscribe(data -> {
+                System.out.println("Fetch device information at HTTPPlugin level");
+                System.out.println(data);
+                ctx.json(data);
+            });
+            System.out.println("Finnish fetching information");
             // system.get(new Event(GET_INFO of Device with ID PATH)).subscribe(data -> {
             //      ctx.json(data);
             // };
@@ -111,14 +117,14 @@ public class HTTPTransportPlugin extends AbstractTransportPlugin<TransporterMeta
         //webHelper.ws("/ws", wsHandlerConsumer2(e));
 
         /** TODO: enable path to name */
-        try {
+        /*try {
             webHelper.get(e.getFrom().getName() , ctx -> {
                 ctx.json(e.getData());
             });
             System.out.println("After sending to get");
         } catch (Exception e1) {
             System.out.println(e1);
-        }
+        }*/
 
 
         /*webHelper.sse(e.getFrom().getName(), sseClient -> {

@@ -7,6 +7,7 @@ import com.tsimul.device.DeviceMetadata;
 import com.tsimul.event.Observable;
 import com.tsimul.event.Observer;
 import com.tsimul.helpers.PluginHelperModule;
+import com.tsimul.measure.Measure;
 import com.tsimul.plugin.Plugin;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * An IOT System is a system composed of multiple sensor
  */
-public interface IOTSystem extends Observable, Observer, Registry<Metadata>, Thing<Metadata>{
+public interface IOTSystem extends Observable, Observer, Registry<Measure<Double>>, Thing<Metadata>{
 
     /**
      * Turn on the system

@@ -80,10 +80,16 @@ public class IOTSystemBuilder extends AbstractIOTSystemBuilder {
                                 .getHttpTransporter()
                                 .getMetadata()
                                 .setSubscriptionDetail(p.getSubscribe());
+
+                        iotSystem.getPluginHelperModule()
+                                .getHttpTransporter()
+                                .setSystem(iotSystem);
                         // Init the plugin before subscribing it to the event
                         // Set up the plugins (by delegation)
 
-
+                        iotSystem.getPluginHelperModule()
+                                .getHttpTransporter()
+                                .get(s.getMetadata().getName());
 
                         // Subscribe the plugins to the events they are interested to
                         iotSystem.getPluginHelperModule()

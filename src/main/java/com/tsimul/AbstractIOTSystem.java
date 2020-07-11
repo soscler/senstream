@@ -6,6 +6,8 @@ import com.tsimul.device.sensor.Sensor;
 import com.tsimul.event.*;
 import com.tsimul.exception.DeviceException;
 import com.tsimul.helpers.PluginHelperModule;
+import com.tsimul.measure.Measure;
+import com.tsimul.measure.SensorMeasure;
 import com.tsimul.plugin.Plugin;
 import com.tsimul.base.Metadata;
 
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
@@ -34,7 +37,7 @@ public abstract class AbstractIOTSystem implements IOTSystem {
     // TODO: Make sure to use the right collection
     // Since there is a unique identifier for each sensor, use a hash map or a Set instead ?
     private final List<Device<DeviceMetadata>> devices = new ArrayList<>();
-
+    private final HashMap<String, Device<DeviceMetadata>> deviceHashMap = new HashMap<>();
     //private final List<Plugin> plugins = new ArrayList<>();
 
     AbstractIOTSystem(PluginHelperModule pluginHelperModule) {
@@ -94,14 +97,17 @@ public abstract class AbstractIOTSystem implements IOTSystem {
     }
 
     @Override
-    public Holder<Metadata> get(String id) {
-        return consumer -> Executors.newSingleThreadExecutor().submit(() -> {
-            //devices.get(id);
-        });
+    public Holder<Measure<Double>> get(String id) {
+        /*return consumer -> Executors.newSingleThreadExecutor().submit(() -> {
+            SensorMeasure<Double> measure = ((Sensor<DeviceMetadata, Double>) deviceHashMap.get(id)).getCurrentMeasure();
+            consumer.accept(measure);
+        });*/
+        return consumer -> consumer.accept(((Sensor<DeviceMetadata, Double>) deviceHashMap.get(id)).getCurrentMeasure());
     }
 
     public void register(Device<DeviceMetadata> device) {
         devices.add(device);
+        deviceHashMap.put(device.getMetadata().getName(), device);
     }
 
     /**
