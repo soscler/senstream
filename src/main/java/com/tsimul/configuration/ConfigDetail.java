@@ -28,7 +28,7 @@ public class ConfigDetail {
 
         private DeviceMetadata metadata;
         private Generation generation;
-        private TransportType transport = TransportType.HTTP;
+        private TransportType transport;
         private StorageType storage = StorageType.MONGODB;
         private AnalyticsType analytics = AnalyticsType.BASIC;
 
@@ -253,7 +253,7 @@ public class ConfigDetail {
     }
 
     public enum TransportType implements PluginSubType {
-        HTTP, WS, KAFKA
+        WS, KAFKA, HTTP
     }
 
     public enum StorageType implements PluginSubType {

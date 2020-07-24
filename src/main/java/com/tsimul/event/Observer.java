@@ -29,7 +29,7 @@ public interface Observer {
      * void subscribeToEvent(EventType type, List<? extends Observer> observers)
      */
 
-    default void subscribeToObservableEvent(Observer o, EventType... type) {
+    default void subscribeToObservable(Observer o, EventType... type) {
         throw new UnsupportedOperationException("This method is not yet implemented by this Observer");
     }
 }

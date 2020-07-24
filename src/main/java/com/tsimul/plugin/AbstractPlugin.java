@@ -1,23 +1,31 @@
 package com.tsimul.plugin;
 
+import com.tsimul.Registry;
 import com.tsimul.event.*;
+import com.tsimul.measure.Measure;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class AbstractPlugin<M extends PluginMetadata> implements Plugin<M> {
+public abstract class AbstractPlugin<M extends PluginMetadata> implements Plugin {
 
     protected M metadata;
 
     private final ObserverImpl observer;
     private final ObservableImpl observable;
+    public Registry<Measure<Double>> iotSystem;
 
     public AbstractPlugin(M metadata) {
         super();
         this.metadata = metadata;
         this.observer = new ObserverImpl(this);
         this.observable = new ObservableImpl();
+    }
+
+    @Override
+    public void setSystem(final Registry<Measure<Double>> iotSystem) {
+        this.iotSystem = iotSystem;
     }
 
     @Override

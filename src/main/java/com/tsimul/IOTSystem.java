@@ -1,22 +1,21 @@
 package com.tsimul;
 
+import com.tsimul.base.Metadata;
 import com.tsimul.base.Thing;
 import com.tsimul.device.Device;
 import com.tsimul.device.DeviceMetadata;
-import com.tsimul.device.sensor.Sensor;
 import com.tsimul.event.Observable;
 import com.tsimul.event.Observer;
-import com.tsimul.helpers.ResourceModule;
-import com.tsimul.measure.SensorMeasure;
+import com.tsimul.helpers.PluginHelperModule;
+import com.tsimul.measure.Measure;
 import com.tsimul.plugin.Plugin;
-import com.tsimul.plugin.PluginMetadata;
 
 import java.util.List;
 
 /**
  * An IOT System is a system composed of multiple sensor
  */
-public interface IOTSystem extends Observable, Observer, Thing {
+public interface IOTSystem extends Observable, Observer, Registry<Measure<Double>>, Thing<Metadata>{
 
     /**
      * Turn on the system
@@ -60,14 +59,14 @@ public interface IOTSystem extends Observable, Observer, Thing {
     /**
      * Register a new plugin to the system
      */
-    default void plugin(Plugin<PluginMetadata> p) {
+    default void plugin(Plugin p) {
         throw new UnsupportedOperationException("The system does not support plugins");
     }
 
     /**
      * De-register a plugin from the system
      */
-    default void unplug(Plugin<PluginMetadata> p) {
+    default void unplug(Plugin p) {
         throw new UnsupportedOperationException("The system does not support plugins");
     }
 
@@ -83,7 +82,7 @@ public interface IOTSystem extends Observable, Observer, Thing {
     default public void update() {}
 
 
-    ResourceModule getResourceModule();
+    PluginHelperModule getPluginHelperModule();
 
     List<? extends Observable> getDevices();
 
